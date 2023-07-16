@@ -1,0 +1,23 @@
+{ 
+  "helpline": "Ишеним телефону",
+  "contactCenter": "Байланыш борбору",
+  "chooseClientType": "Кардардын түрүн тандаңыз",
+  "legalEntity": "Юридикалык жак",
+  "individual": "Жеке адам",
+  "iAmApensioner": "Мен пенсионермин",
+  "onward": "Кийинки",
+  "listOfDocuments": "Бул кызмат үчүн зарыл болгон документтердин тизмеси:",
+  "print": "Басып чыгаруу",
+  "cancel": "Жокко чыгаруу",
+  "getATicket": "Талон алуу",
+  "terminalIsBlocked": "Терминал бөгөттөлгөн",
+  "enterYourPin": "PIN кодуңузду киргизиңиз",
+  "confirm": "Тастыктоо",
+  "requiredDocuments": "*бул документтер талап кылынат",
+  "talon": "Талон",
+  "timeOfRegistration": "Каттоо убактысы",
+  "chosenQueue": "Тандалган кезек",
+  "positionInQueue": "Кезектеги орун",
+  "forecastedWaitingTime": "Болжолдуу күтүү убактысы",
+  "minutes": "мүнөт"
+}  

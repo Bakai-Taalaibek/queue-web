@@ -1,0 +1,24 @@
+{ 
+  "helpline": "Телефон доверия",
+  "contactCenter": "Контакт-центр",
+  "chooseClientType": "Выберите тип клиента",
+  "legalEntity": "Юридическое лицо",
+  "individual": "Физическое лицо",
+  "iAmApensioner": "Я пенсионер(-ка)",
+  "onward": "Далее",
+  "listOfDocuments": "Список документов, требуемых для данной услуги:",
+  "print": "Распечатать",
+  "cancel": "Отменить",
+  "getATicket": "Получить талон",
+  "terminalIsBlocked": "Терминал заблокирован",
+  "enterYourPin": "Введите PIN-код",
+  "confirm": "Подтвердить",
+  "requiredDocuments": "*необходимые документы",
+  "talon": "Талон",
+  "timeOfRegistration": "Время регистрации",
+  "chosenQueue": "Выбранная очередь",
+  "positionInQueue": "Позиция в очереди",
+  "forecastedWaitingTime": "Расчетное время ожидания",
+  "minutes": "минут"
+  
+}  

@@ -1,0 +1,26 @@
+.general {
+  padding: 40px 40px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+}
+
+.title {
+  text-align: center;
+}
+
+.list {
+  padding-left: 120px;
+}
+.list > * {
+  padding-bottom: 10px;
+}
+
+.note {
+  padding-left: 80px;
+}
+
+.talonGeneral {
+  margin: 0;
+  padding: 0; 
+}

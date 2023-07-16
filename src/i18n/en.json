@@ -1,0 +1,24 @@
+{ 
+  "helpline": "Helpline",
+  "contactCenter": "Contact center",
+  "chooseClientType": "Select client type",
+  "legalEntity": "Legal entity",
+  "individual": "Individual",
+  "iAmApensioner": "I am a pensioner",
+  "onward": "Next",
+  "listOfDocuments": "List of documents required for this service:",
+  "print": "Print",
+  "cancel": "Cancel",
+  "getATicket": "Get a ticket",
+  "terminalIsBlocked": "Terminal is blocked",
+  "enterYourPin": "Enter your PIN",
+  "confirm": "Confirm",
+  "requiredDocuments": "*these documents are required",
+  "talon": "Ticket",
+  "timeOfRegistration": "Registration time",
+  "chosenQueue": "Selected queue",
+  "positionInQueue": "Position in the queue",
+  "forecastedWaitingTime": "Estimated waiting time",
+  "minutes": "minutes"
+
+}  
