@@ -18,7 +18,7 @@ export const CityPicker = () => {
   }
 
   const handleLanguageChange = (event) => {
-    i18n.changeLanguage(event.target.value)
+    // i18n.changeLanguage(event.target.value)
     setFloatingLangWindow(!floatingLangWindow)
 
     document.addEventListener('mousedown', handler)
@@ -35,7 +35,7 @@ export const CityPicker = () => {
       <h2>Получение электронной очереди</h2>
       <p>Шаг 1/5</p>
 
-      <div className=''>
+      <div>
         <button 
           type='button'
           // value={ parameters.city || 'Выберите город' }
@@ -47,7 +47,7 @@ export const CityPicker = () => {
           ref={ floatingWindowRef }  
           type='button' 
           // className={ floatingLangWindow ? floatingWindow : 'hidden' }
-          value={ i18n.language === 'ru' ? 'en' : 'ru' }
+          // value={ i18n.language === 'ru' ? 'en' : 'ru' }
           onClick={ handleLanguageChange }
         >
           Бишкек
