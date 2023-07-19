@@ -29,7 +29,10 @@ export const useServiceChooser = create((set, get) => ({
 	},
 	setServerResponse: (newResponse) => {
 		set({ serverResponse: newResponse })
-		console.log('zustand:', get().serverResponse)
+		// console.log('zustand:', get().serverResponse)
+	},
+	setCity: (newCity) => {
+		set({ parameters: {...get().parameters, city: newCity} })
 	},
 	resetParameters: () => { 
 		set({ parameters: {

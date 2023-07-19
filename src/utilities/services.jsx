@@ -12,8 +12,13 @@ const login = async (credentials) => {
   return response.data
 }
 
-const getAll = async () => {
+const getServices = async () => {
   const response = await axios.get(`${baseUrl}/base/services/`)
+  return response.data
+}
+
+const getBranches = async () => {
+  const response = await axios.get(`${baseUrl}/branch/list/`)
   return response.data
 }
 
@@ -29,6 +34,6 @@ const printDocuments = async serviceName => {
   return response.data
 }
 
-const mainService = { setToken, login, getAll, chosen, printDocuments }
+const mainService = { setToken, login, getServices, getBranches, chosen, printDocuments }
 
 export default mainService

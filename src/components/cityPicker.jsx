@@ -1,33 +1,50 @@
 import { useServiceChooser } from "../utilities/zustand"
 import { useNavigate } from 'react-router-dom'
 import '../styles/mainStyles.scss'
-import { useTranslation } from 'react-i18next';
-import { useState, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useState, useRef, useEffect } from 'react'
+import mainService from '../utilities/services'
 
 
 export const CityPicker = () => {
-  const { setPensionerState, setPersonState, parameters } = useServiceChooser()
+  const { parameters, setCity } = useServiceChooser()
   const navigate = useNavigate()
   const { t } = useTranslation()
   const floatingWindowRef = useRef()
+  const [branches, setBranches] = useState([])
+  const [citiesVisibility, setCitiesVisibility] = useState(false)
+  const [cities, setCities] = useState([])
 
-  const handleSubmit = (event) => {
-    event.preventDefault
-    // setPensionerState(pensioner)
-    navigate('../documents')
-  }
+  // Making the first argument of useEffect hook an async function resulted in 'destroy is not a function' error.
+  // I used an immediately invoked function to circumvent this error. -Bakai
+  useEffect(() => {
+    (async () => {
+      const result = await mainService.getBranches()
+      setBranches(result)
+      setCities([...new Set(result.map(item => item.city))])
+    })()   
+  }, [])
 
-  const handleLanguageChange = (event) => {
-    // i18n.changeLanguage(event.target.value)
-    setFloatingLangWindow(!floatingLangWindow)
+  const handleCitiesVisibility = (event) => {
+    setCitiesVisibility(!citiesVisibility)
 
     document.addEventListener('mousedown', handler)
     function handler(event) {
       if (!floatingWindowRef.current.contains(event.target)) {
-        setFloatingLangWindow(false)
+        setCitiesVisibility(false)
         document.removeEventListener('mousedown', handler)
       }
     }
+  }
+
+  const handleCityChoice = (event) => {
+    setCity(event.target.value)
+    setCitiesVisibility(false)
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault
+    navigate('../documents')
   }
 
   return(
@@ -35,24 +52,32 @@ export const CityPicker = () => {
       <h2>Получение электронной очереди</h2>
       <p>Шаг 1/5</p>
 
-      <div>
+      <div ref={ floatingWindowRef } >
         <button 
           type='button'
-          // value={ parameters.city || 'Выберите город' }
-          onClick={ handleLanguageChange }
+          onClick={ handleCitiesVisibility }
         >
           { parameters.city || 'Выберите город' } &#8964; 
         </button>
-        <button 
-          ref={ floatingWindowRef }  
-          type='button' 
-          // className={ floatingLangWindow ? floatingWindow : 'hidden' }
-          // value={ i18n.language === 'ru' ? 'en' : 'ru' }
-          onClick={ handleLanguageChange }
-        >
-          Бишкек
-        </button>
+        
+        <div style={{ visibility: citiesVisibility ? "visible" : "hidden" }}>
+          { cities.map((city, index) => {
+            return(
+              <button  
+                key={ index }
+                type='button' 
+                value={ city }
+                onClick={ handleCityChoice }
+              >
+                { city }                
+              </button>
+            )
+          })}
+        </div>
       </div>
+      
+      <button onClick={ handleSubmit }>Далее</button>
+
     </div>
   )
 }
