@@ -208,7 +208,7 @@ export const ServicePicker = () => {
   const handleServiceClick = (object) => {
     setService(object.id)
     setDocuments(object.documents)
-    navigate('client')
+    navigate('../client')
   }
 
   return (

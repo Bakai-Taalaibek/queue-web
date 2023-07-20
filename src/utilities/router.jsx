@@ -7,6 +7,8 @@ import { DocumentsList } from "../components/documentsList";
 import { Error } from "../components/error";
 import { CityPicker } from "../components/cityPicker";
 import { BranchPicker } from "../components/branchPicker";
+import { BranchSchedule } from "../components/branchSchedule";
+import { TicketTypePicker } from "../components/ticketTypePicker";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +25,10 @@ export const router = createBrowserRouter([
         element: <BranchPicker />,
       },
       {
+        path: "schedule",
+        element: <BranchSchedule />,
+      },
+      {
         path: "entry",
         element: <PincodeEntryPage />,
       },
@@ -37,7 +43,11 @@ export const router = createBrowserRouter([
       {
         path: 'documents',
         element: <DocumentsList />
-      }
+      },
+      {
+        path: 'ticket',
+        element: <TicketTypePicker />
+      },
     ],
   },
 ]);

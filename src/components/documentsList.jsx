@@ -24,13 +24,6 @@ export const DocumentsList = () => {
     printDocuments()
   }
 
-
-  const handleCancel = () => {
-    resetParameters()
-    navigate('/')
-  }
-
-
   const handleEnqueue = async () => {
     const result = await mainService.chosen(parameters)
     await setServerResponse(result)
@@ -64,8 +57,8 @@ export const DocumentsList = () => {
 
       <div className='horisontal-group'>
         <button className='button' onClick={ handlePrintDocuments }>{ t('print') }</button>
-        <button className='button' onClick={ handleCancel }>{ t('cancel') }</button>
-        <button className='button' onClick={ handleEnqueue }>{ t('getATicket') }</button>
+        <button onClick={ () => navigate('../ticket') }>Далее</button>  
+        {/* <button className='button' onClick={ handleEnqueue }>{ t('getATicket') }</button> */}
       </div>
 
       <div style={{ display: 'none' }} >

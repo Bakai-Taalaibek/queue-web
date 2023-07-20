@@ -9,7 +9,8 @@ export const useServiceChooser = create((set, get) => ({
 		is_pensioner: false,
 		is_appointment: false,
 		comment: null,
-		branch: 1
+		branch: null,
+		branchAddress: ''
 	},
 	documents: [{ name: 'паспорт', required: true, lang_name: [] }],
 	serverResponse: {},
@@ -40,6 +41,9 @@ export const useServiceChooser = create((set, get) => ({
 	setBranch: (newBranch) => {
 		set({ parameters: {...get().parameters, branch: newBranch} })
 	},
+	setBranchAddress: (newBranchAddress) => {
+		set({ parameters: {...get().parameters, branchAddress: newBranchAddress} })
+	},
 	resetParameters: () => { 
 		set({ parameters: {
 			city: null,
@@ -49,9 +53,11 @@ export const useServiceChooser = create((set, get) => ({
 			is_pensioner: false,
 			is_appointment: false,
 			comment: null,
-			branch: 1
+			branch: null,
+			branchAddress: ''
 		} })
 		set({ documents: [{ name: 'паспорт', required: true, lang_name: [] }] })
 		set({ serverResponse: {} })
+		set({ allBranches: [] })
 	}
 }))

@@ -11,7 +11,6 @@ export const CityPicker = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const floatingWindowRef = useRef()
-  const [branches, setBranches] = useState([])
   const [listVisibility, setListVisibility] = useState(false)
   const [cities, setCities] = useState([])
 
@@ -20,7 +19,6 @@ export const CityPicker = () => {
   useEffect(() => {
     (async () => {
       const result = await mainService.getBranches()
-      console.log(result)
       setAllBranches(result)
       // Find all unique cities on branches object
       setCities([...new Set(result.map(item => item.city))])
@@ -33,7 +31,7 @@ export const CityPicker = () => {
     // To close the floating window by clicking anyware on the page
     document.addEventListener('mousedown', handler)
     function handler(event) {
-      if (!floatingWindowRef.current.contains(event.target)) {
+      if (!floatingWindowRef.current?.contains(event.target)) {
         setListVisibility(false)
         document.removeEventListener('mousedown', handler)
       }
