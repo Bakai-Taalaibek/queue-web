@@ -6,6 +6,7 @@ import { ClientInfo } from "../components/clientPicker";
 import { DocumentsList } from "../components/documentsList";
 import { Error } from "../components/error";
 import { CityPicker } from "../components/cityPicker";
+import { BranchPicker } from "../components/branchPicker";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ export const router = createBrowserRouter([
       {
         path: "",
         element: <CityPicker />,
+      },
+      {
+        path: "branch",
+        element: <BranchPicker />,
       },
       {
         path: "entry",

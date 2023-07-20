@@ -6,26 +6,22 @@ import { useState, useRef, useEffect } from 'react'
 import mainService from '../utilities/services'
 
 
-export const CityPicker = () => {
-  const { parameters, setCity, setAllBranches } = useServiceChooser()
+export const BranchPicker = () => {
+  const { parameters, setBranch, allBranches } = useServiceChooser()
   const navigate = useNavigate()
   const { t } = useTranslation()
   const floatingWindowRef = useRef()
   const [branches, setBranches] = useState([])
   const [listVisibility, setListVisibility] = useState(false)
-  const [cities, setCities] = useState([])
 
   // Making the first argument of useEffect hook an async function resulted in 'destroy is not a function' error.
   // I used an immediately invoked function to circumvent this error. -Bakai
-  useEffect(() => {
-    (async () => {
-      const result = await mainService.getBranches()
-      console.log(result)
-      setAllBranches(result)
-      // Find all unique cities on branches object
-      setCities([...new Set(result.map(item => item.city))])
-    })()   
-  }, [])
+//   useEffect(() => {
+//     (async () => {
+//       const result = await mainService.getBranches()
+//       setBranches(result)
+//     })()   
+//   }, [])
 
   const handleListVisibility = (event) => {
     setListVisibility(!listVisibility)
@@ -40,46 +36,46 @@ export const CityPicker = () => {
     }
   }
 
-  const handleCityChoice = (event) => {
-    setCity(event.target.value)
+  const handleBranchChoice = (event) => {
+    setBranch(event.target.value)
     setListVisibility(false)
   }
 
   const handleSubmit = (event) => {
     event.preventDefault
-    navigate('../branch')
+    navigate('../service')
   }
 
   return(
     <div>
       <h2>Получение электронной очереди</h2>
-      <p>Шаг 1/5</p>
+      <p>Шаг 2/5</p>
 
       <div ref={ floatingWindowRef } >
         <button 
           type='button'
           onClick={ handleListVisibility }
         >
-          { parameters.city || 'Выберите город' } &#8964; 
+          { parameters.branch || 'Выберите филиал' } &#8964; 
         </button>
         
         <div style={{ visibility: listVisibility ? "visible" : "hidden" }}>
-          { cities.map((city, index) => {
+          { allBranches.map((branch, index) => {
             return(
               <button  
                 key={ index }
                 type='button' 
-                value={ city }
-                onClick={ handleCityChoice }
+                value={ branch }
+                onClick={ handleBranchChoice }
               >
-                { city }                
+                { branch.address }                
               </button>
             )
           })}
         </div>
       </div>
       
-      <button disabled={ parameters.city ? false : true } onClick={ handleSubmit }>Далее</button>
+      <button disabled={ parameters.branch ? false : true } onClick={ handleSubmit }>Далее</button>
 
     </div>
   )

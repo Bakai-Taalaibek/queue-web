@@ -13,7 +13,7 @@ export const useServiceChooser = create((set, get) => ({
 	},
 	documents: [{ name: 'паспорт', required: true, lang_name: [] }],
 	serverResponse: {},
-	
+	allBranches: [],
 	setService: (newService) => {
 		set({ parameters: {...get().parameters, service: newService} })
 	},
@@ -33,6 +33,12 @@ export const useServiceChooser = create((set, get) => ({
 	},
 	setCity: (newCity) => {
 		set({ parameters: {...get().parameters, city: newCity} })
+	},
+	setAllBranches: (receivedBranches) => {
+		set({ allBranches: receivedBranches })
+	},
+	setBranch: (newBranch) => {
+		set({ parameters: {...get().parameters, branch: newBranch} })
 	},
 	resetParameters: () => { 
 		set({ parameters: {
