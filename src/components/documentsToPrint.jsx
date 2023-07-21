@@ -8,23 +8,60 @@ const documentsToPrint = React.forwardRef((props, ref) => {
   const { t, i18n } = useTranslation()
 
   return (
-    <div className='general' ref={ref}>
-      <h2 className='title'>{ t('listOfDocuments') }</h2>
-      <ul className='list'>
+    <div ref={ref} style={{ display: 'flex', flexDirection: 'column', fontSize: '0.8rem' }}>
+      <h2 style={{ textAlign: 'center' }}>{ t('listOfDocuments') }</h2>
+      <ul style={{ paddingLeft: '40mm', width: '210mm' }}>
         { documents.map((document, index) => { 
           return(
             <li key={ index }  style={{ textAlign: 'left' }}>
               <span>{ (document.lang_name.find(option => option.lang === i18n.language) || {}).text || document.name }</span> 
               <span>{ documents.length === index + 1 ? '' : ';' }</span>
-              <span style={{ fontSize: '20px' }}>{ document.required ? '*' : '' }</span>
+              <span style={{ fontSize: '0.8rem' }}>{ document.required ? '*' : '' }</span>
             </li>
           )
         }) }
       </ul>
-      <p className='note'><i>{ t('requiredDocuments') }</i></p>
+      <p style={{ paddingLeft: '30mm' }}><i>{ t('requiredDocuments') }</i></p>
     </div>
   )
 })
 
 documentsToPrint.displayName = 'documentsToPrint';
 export default documentsToPrint
+
+// return (
+//   <div className='general' ref={ref} style={{ fontSize: '5px' }}>
+//     <h2 className='title' style={{ fontSize: '5px' }}>{ t('listOfDocuments') }</h2>
+//     <ul className='list'>
+//       { documents.map((document, index) => { 
+//         return(
+//           <li key={ index }  style={{ textAlign: 'left' }}>
+//             <span>{ (document.lang_name.find(option => option.lang === i18n.language) || {}).text || document.name }</span> 
+//             <span>{ documents.length === index + 1 ? '' : ';' }</span>
+//             <span style={{ fontSize: '20px' }}>{ document.required ? '*' : '' }</span>
+//           </li>
+//         )
+//       }) }
+//     </ul>
+//     <p className='note'><i>{ t('requiredDocuments') }</i></p>
+//   </div>
+// )
+
+
+// return (
+//   <div ref={ref} style={{ display: 'flex', flexDirection: 'column', fontSize: '20px', width: '550px', margin: '30px' }}>
+//     <h2 style={{ textAlign: 'center' }}>{ t('listOfDocuments') }</h2>
+//     <ul style={{ paddingLeft: '120px', width: '300px' }}>
+//       { documents.map((document, index) => { 
+//         return(
+//           <li key={ index }  style={{ textAlign: 'left' }}>
+//             <span>{ (document.lang_name.find(option => option.lang === i18n.language) || {}).text || document.name }</span> 
+//             <span>{ documents.length === index + 1 ? '' : ';' }</span>
+//             <span style={{ fontSize: '20px' }}>{ document.required ? '*' : '' }</span>
+//           </li>
+//         )
+//       }) }
+//     </ul>
+//     <p style={{ paddingLeft: '80px' }}><i>{ t('requiredDocuments') }</i></p>
+//   </div>
+// )

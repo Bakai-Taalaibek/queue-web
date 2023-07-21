@@ -22,21 +22,7 @@ export const Header = () => {
 
   // This function blocks the terminal if you press the logo 5 times in 5000 miliseconds. 
   const handleLogoClick = () => {
-    setLogoClicksCount(logoClicksCount + 1)
-
-    // Clear out previous timeout function
-    if (pendingTimeout) {
-      clearTimeout(pendingTimeout)
-    }
-
-    let timeoutId = setTimeout(() => {
-      setLogoClicksCount(0)
-    }, 5000)
-    setPendingTimeout(timeoutId)
-
-    if (logoClicksCount > 2) {
-      navigate('/entry')
-    }
+    navigate('')
   }
 
   return (
