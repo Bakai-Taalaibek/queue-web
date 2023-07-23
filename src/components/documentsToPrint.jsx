@@ -2,15 +2,16 @@ import React from 'react'
 import { useServiceChooser } from "../utilities/zustand"
 import { useTranslation } from 'react-i18next';
 import '../styles/print.css'
+import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
 const documentsToPrint = React.forwardRef((props, ref) => {
   const { documents } = useServiceChooser()
   const { t, i18n } = useTranslation()
 
   return (
-    <div ref={ref} style={{ display: 'flex', flexDirection: 'column', fontSize: '0.8rem' }}>
+    <div ref={ref} style={{ display: 'flex', flexDirection: 'column', fontSize: '0.8rem', width: '40rem', margin: '1rem', fontFamily: 'Inter' }}>
       <h2 style={{ textAlign: 'center' }}>{ t('listOfDocuments') }</h2>
-      <ul style={{ paddingLeft: '40mm', width: '210mm' }}>
+      <ul style={{ paddingLeft: '10rem', width: '40rem' }}>
         { documents.map((document, index) => { 
           return(
             <li key={ index }  style={{ textAlign: 'left' }}>
@@ -26,7 +27,7 @@ const documentsToPrint = React.forwardRef((props, ref) => {
   )
 })
 
-documentsToPrint.displayName = 'documentsToPrint';
+// documentsToPrint.displayName = 'documentsToPrint';
 export default documentsToPrint
 
 // return (

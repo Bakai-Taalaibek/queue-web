@@ -6,11 +6,15 @@ import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import arrow from '../assets/arrow.svg'
 import { useReactToPrint } from "react-to-print"
-import TalonToPrint from './talonToPrint'
+import TalonToPrint from './ticketToPrint'
 import DocumentsToPrint from './documentsToPrint'
 import JsPDF from 'jspdf'
-import html2canvas from "html2canvas"
-import html2PDF from 'jspdf-html2canvas';
+import html2canvas from 'html2canvas';
+// import { DocumentsForSaving } from './documentsForSaving'
+import ReactPDF from '@react-pdf/renderer';
+import * as ReactDOM from 'react-dom';
+import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer'
+import Inter from '../assets/Inter-Medium.ttf'
 
 
 export const DocumentsList = () => {
@@ -24,57 +28,117 @@ export const DocumentsList = () => {
   const printDocuments = useReactToPrint({ content: () => documentsPrintRef.current, pageStyle: "@page { size: 210mm 297mm }" })
 
   const handlePrintDocuments = () => {
-    // mainService.printDocuments(parameters.service)
     printDocuments()
   }
 
-  const handleEnqueue = async () => {
-    const result = await mainService.chosen(parameters)
-    await setServerResponse(result)
+  // const handleEnqueue = async () => {
+  //   const result = await mainService.chosen(parameters)
+  //   await setServerResponse(result)
 
-    printTalons()
+  //   printTalons()
 
-    resetParameters()
-    navigate('/')
-  }
+  //   resetParameters()
+  //   navigate('/')
+  // }
 
-  const handleDownload = useReactToPrint({
-    onPrintError: (error) => console.log(error),
-    content: () => documentsPrintRef.current,
-    removeAfterPrint: true,
-    print: async (printIframe) => {
-      const document = printIframe.contentDocument;
-      if (document) {
-        const documentToPrint = document.getElementById("documentsPrintRef");
-        console.log(documentToPrint);
+  // const handleDownload = async (domElement) => {
+  //   // const elementForSaving = await document.querySelector("#documentsPrintRef")
+  //   const documentsAsPDF = new JsPDF('portrait','pt', 'a4')
+  //   const canvas = await html2canvas(domElement, { scale: 1, onclone: (document) => {
+  //     document.querySelector().style.color = 'black'
+  //   }})  
+  //   const divImage = canvas.toDataURL("image/png")
 
-        // const exporter = new Html2Pdf(documentToPrint, {filename:"Nota Simple.pdf"});
-        // exporter.getPdf(true);
+  //   documentsAsPDF.addImage(divImage, 'PNG', 0, 0);
+  //   documentsAsPDF.save("documents.pdf");
+  //   // html2canvas(elementForSaving).then(function (canvas) {
+  //   //   const divImage = canvas.toDataURL("image/png")
+  //   //   console.log('1')
+  //   //   documentsAsPDF.addImage(divImage, 'PNG', 0, 0);
+  //   //   console.log('2')
+  //   //   documentsAsPDF.save("documents.pdf");
+  //   // })
 
-        const documentsAsPDF = new JsPDF('portrait','mm', 'a4')
-        documentsAsPDF.html(documentToPrint).then(() => {
-          console.log('hi')
-          documentsAsPDF.save('documents.pdf')
-        })
-      }
+  //   // const myFont = 'src/assets/Inter-Medium.ttf'
+
+  //   // // add the font to jsPDF
+  //   // documentsAsPDF.addFileToVFS("MyFont.ttf", myFont);
+  //   // documentsAsPDF.addFont("MyFont.ttf", "MyFont", "normal");
+  //   // documentsAsPDF.setFont("MyFont");
+  //   // documentsAsPDF.html(htmlForPrinting).then(() => {
+  //   //   documentsAsPDF.save('documents.pdf')
+  //   // })
+
+
+  //   // ReactDOM.render(<DocumentsForSaving />, 'example.pdf');
+  // }
+  Font.register({ family: 'Roboto', fonts: [
+    { src: "src/assets/Roboto-Regular.ttf" }, // font-style: normal, font-weight: normal
+    { src: "src/assets/Roboto-Italic.ttf", fontStyle: 'italic' },
+    { src: "src/assets/Roboto-Bold.ttf", fontStyle: 'bold' },
+   ]});
+  Font.register({ family: 'NotoSans', fonts: [
+     { src: "src/assets/NotoSans-Regular.ttf" }, // font-style: normal, font-weight: normal
+     { src: "src/assets/NotoSans-Italic.ttf", fontStyle: 'italic' },
+     { src: "src/assets/NotoSans-Bold.ttf", fontStyle: 'bold' },
+    ]});
+  Font.register({ family: 'Inter', src: "src/assets/Inter-Medium.ttf" })
+
+  const styles = StyleSheet.create({
+    page: {
+      fontFamily: 'NotoSans',
+      flexDirection: 'column',
+      padding: '40px 40px 30px 30px',
+      display: 'flex',
+      fontSize: '20px'
     },
-  });
+    header: {
+      textAlign: 'center',
+      marginBottom: '10px',
+      fontStyle: 'bold',
+    },
+    section: {
+      textAlign: 'left',
+      fontSize: '16px',
+      marginLeft: '45px',
+      marginBottom: '8px',
+    },
+    bottom: {
+      paddingLeft: '30mm',
+      fontStyle: 'italic',
+      fontSize: '16px',
+      paddingTop: '10px',
+    }
+  })
 
-  const saveAsPDF = async () => {
-    // const htmlForPrinting = documentsPrintRef.current
-    // html2PDF(htmlForPrinting, {
-    //   output: 'documents.pdf'
-    // });
+  const DocumentsForSaving = () => (
+    <Document>
+      <Page size="A4" style={ styles.page }>
+    
+        <View style={ styles.header }>
+          <Text>{ t('listOfDocuments') }</Text>
+        </View>
+    
+        { documents.map((document, index) => { 
+          return(
+            <View key={ index }>
+              <Text style={ styles.section }>
+                &#8226;
+                { (document.lang_name.find(option => option.lang === i18n.language) || {}).text || document.name }
+                { documents.length === index + 1 ? '' : ';' }
+                { document.required ? '*' : '' }
+              </Text>
 
+            </View>
+          )
+        }) }
 
-    const documentsAsPDF = new JsPDF('portrait','mm', 'a4')
-    const htmlForPrinting = documentsPrintRef.current
-    const canvasForPrinting = await html2canvas(htmlForPrinting);
-    documentsAsPDF.html(canvasForPrinting).then(() => {
-      documentsAsPDF.save('documents.pdf')
-    })
-  }
-
+        <View style={ styles.bottom }>
+          <Text>{ t('requiredDocuments') }</Text>
+        </View>
+      </Page>
+    </Document>
+  ) 
 
   return (
     <>
@@ -96,17 +160,20 @@ export const DocumentsList = () => {
       </ul>
       <p className="text text--smaller-17"><i>{ t('requiredDocuments') }</i></p>
 
-
       <div className='horisontal-group'>
-        <button className='button' onClick={ handleDownload }>Сохранить</button>
+        <PDFDownloadLink document={<DocumentsForSaving />} style={{ textDecoration: 'none' }} fileName="documents.pdf" className='button'>
+          {({ blob, url, loading, error }) =>
+            loading ? 'Минуточку...' : 'Сохранить'
+          }
+        </PDFDownloadLink>
+
         <button className='button' onClick={ handlePrintDocuments }>{ t('print') }</button>
         <button onClick={ () => navigate('../ticket') }>Далее</button>  
-        {/* <button className='button' onClick={ handleEnqueue }>{ t('getATicket') }</button> */}
       </div>
 
       <div style={{ display: 'none' }} >
         <TalonToPrint  ref={ talonPrintRef }/> 
-        <DocumentsToPrint ref={ documentsPrintRef } id='documentsPrintRef' />
+        <DocumentsToPrint ref={ documentsPrintRef } />
       </div>
     </>
   )

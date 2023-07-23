@@ -7,14 +7,11 @@ export const useServiceChooser = create((set, get) => ({
 		service: null,
 		client_type: 'physical',
 		is_pensioner: false,
-		is_appointment: false,
+		is_appointment: null,
 		comment: null,
 		branch: null,
 		branchAddress: ''
 	},
-	documents: [{ name: 'паспорт', required: true, lang_name: [] }],
-	serverResponse: {},
-	allBranches: [],
 	setService: (newService) => {
 		set({ parameters: {...get().parameters, service: newService} })
 	},
@@ -22,28 +19,49 @@ export const useServiceChooser = create((set, get) => ({
 		set({ parameters: {...get().parameters, client_type: newPerson} })
 	},
 	setPensionerState: (newPensioner) => {
-		console.log(newPensioner)
 		set({ parameters: {...get().parameters, is_pensioner: newPensioner} })
-	},
-	setDocuments: (newDocuments) => {
-		set({ documents: newDocuments })
-	},
-	setServerResponse: (newResponse) => {
-		set({ serverResponse: newResponse })
-		// console.log('zustand:', get().serverResponse)
 	},
 	setCity: (newCity) => {
 		set({ parameters: {...get().parameters, city: newCity} })
 	},
-	setAllBranches: (receivedBranches) => {
-		set({ allBranches: receivedBranches })
+	setBranchAddress: (newBranchAddress) => {
+		set({ parameters: {...get().parameters, branchAddress: newBranchAddress} })
+	},
+	setIsAppointment: (newIsAppointment) => {
+		set({ parameters: {...get().parameters, is_appointment: newIsAppointment} })
 	},
 	setBranch: (newBranch) => {
 		set({ parameters: {...get().parameters, branch: newBranch} })
 	},
-	setBranchAddress: (newBranchAddress) => {
-		set({ parameters: {...get().parameters, branchAddress: newBranchAddress} })
+
+	documents: [{ name: 'паспорт', required: true, lang_name: [] }],
+	setDocuments: (newDocuments) => {
+		set({ documents: newDocuments })
 	},
+
+	serverResponse: {},
+	setServerResponse: (newResponse) => {
+		set({ serverResponse: newResponse })
+	},
+
+	allBranches: [],
+	setAllBranches: (receivedBranches) => {
+		set({ allBranches: receivedBranches })
+	},
+
+	phoneForActivation: '',
+	setPhoneForActivation: (newPhoneForActivation) => {
+		set({ phoneForActivation: newPhoneForActivation })
+	},
+	resetPhoneForActivation: () => {
+		set({ phoneForActivation: '' })
+	},
+
+	user: null,
+	setUser: (newUser) => {
+		set({ user: newUser })
+	},
+
 	resetParameters: () => { 
 		set({ parameters: {
 			city: null,
@@ -51,7 +69,7 @@ export const useServiceChooser = create((set, get) => ({
 			service: null,
 			client_type: 'physical',
 			is_pensioner: false,
-			is_appointment: false,
+			is_appointment: null,
 			comment: null,
 			branch: null,
 			branchAddress: ''
@@ -59,5 +77,6 @@ export const useServiceChooser = create((set, get) => ({
 		set({ documents: [{ name: 'паспорт', required: true, lang_name: [] }] })
 		set({ serverResponse: {} })
 		set({ allBranches: [] })
+		set({ phoneForActivation: '' })
 	}
 }))

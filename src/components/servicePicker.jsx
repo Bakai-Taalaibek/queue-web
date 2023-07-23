@@ -200,7 +200,7 @@ export const ServicePicker = () => {
   // I used an immediately invoked function to circumvent this error. -Bakai
   useEffect(() => {
     (async () => {
-      const result = await mainService.getServices()
+      const result = await mainService.getServices(parameters.branch)
       setServices(result)
     })()   
   }, [])

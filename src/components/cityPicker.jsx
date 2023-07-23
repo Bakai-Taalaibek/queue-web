@@ -24,7 +24,7 @@ export const CityPicker = () => {
       setCities([...new Set(result.map(item => item.city))])
     })()   
   }, [])
-
+  
   const handleListVisibility = (event) => {
     setListVisibility(!listVisibility)
 

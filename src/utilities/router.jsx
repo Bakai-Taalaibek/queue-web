@@ -9,6 +9,10 @@ import { CityPicker } from "../components/cityPicker";
 import { BranchPicker } from "../components/branchPicker";
 import { BranchSchedule } from "../components/branchSchedule";
 import { TicketTypePicker } from "../components/ticketTypePicker";
+import { DateAndTimePicker } from "../components/dateAndTimePicker";
+import { Authorization } from "../components/authorization";
+import { Registration } from "../components/registration";
+import { Activation } from "../components/activation";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +23,18 @@ export const router = createBrowserRouter([
       {
         path: "",
         element: <CityPicker />,
+      },
+      {
+        path: "registration",
+        element: <Registration />,
+      },
+      {
+        path: "activation",
+        element: <Activation />,
+      },
+      {
+        path: "authorization",
+        element: <Authorization />,
       },
       {
         path: "branch",
@@ -47,6 +63,10 @@ export const router = createBrowserRouter([
       {
         path: 'ticket',
         element: <TicketTypePicker />
+      },
+      {
+        path: 'datetime',
+        element: <DateAndTimePicker />
       },
     ],
   },
