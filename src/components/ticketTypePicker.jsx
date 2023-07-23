@@ -1,9 +1,18 @@
 import { useServiceChooser } from "../utilities/zustand"
 import { useNavigate } from 'react-router-dom'
+import mainService from '../utilities/services'
 
 export const TicketTypePicker = () => {
-  const { parameters, documents, resetParameters, setIsAppointment } = useServiceChooser()
+  const { parameters, setServerResponse, resetSomeState, setIsAppointment } = useServiceChooser()
   const navigate = useNavigate()
+
+  const handleEnqueue = async () => {
+    const result = await mainService.enqueue(parameters)
+    await setServerResponse(result)
+    console.log(result)
+    resetSomeState()
+    navigate('../view')
+  }
 
   return(
     <div>
@@ -14,7 +23,7 @@ export const TicketTypePicker = () => {
 
       <button 
         style={{ display: parameters.is_appointment === false ? 'block' : 'none' }} 
-        onClick={ () => navigate('../datetime') }
+        onClick={ handleEnqueue }
       >
         Получить талон
       </button>

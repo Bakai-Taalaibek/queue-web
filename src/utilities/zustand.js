@@ -43,6 +43,9 @@ export const useServiceChooser = create((set, get) => ({
 	setServerResponse: (newResponse) => {
 		set({ serverResponse: newResponse })
 	},
+	resetServerResponse: () => {
+		set({ serverResponse: {} })
+	},
 
 	allBranches: [],
 	setAllBranches: (receivedBranches) => {
@@ -62,7 +65,7 @@ export const useServiceChooser = create((set, get) => ({
 		set({ user: newUser })
 	},
 
-	resetParameters: () => { 
+	resetSomeState: () => { 
 		set({ parameters: {
 			city: null,
 			address: null,
@@ -75,7 +78,6 @@ export const useServiceChooser = create((set, get) => ({
 			branchAddress: ''
 		} })
 		set({ documents: [{ name: 'паспорт', required: true, lang_name: [] }] })
-		set({ serverResponse: {} })
 		set({ allBranches: [] })
 		set({ phoneForActivation: '' })
 	}

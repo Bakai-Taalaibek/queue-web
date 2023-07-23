@@ -53,22 +53,90 @@ export const DateAndTimePicker = () => {
 
 
   const theme = createTheme({
-    typography: {
-      fontSize: 12,
-      fontFamily: "Segoe UI, Helvetica, Arial, sans-serif",
-    },
-    palette: {
-      primary: {
-        main: 'rgb(66, 127, 232)',
+    // typography: {
+    //   fontSize: 12,
+    //   fontFamily: "Segoe UI, Helvetica, Arial, sans-serif",
+    // },
+    // palette: {
+    //   primary: {
+    //     main: 'rgb(66, 127, 232)',
+    //   },
+    //   secondary: {
+    //     main: '#f44336',
+    //   },
+    // },    
+    components: {
+      MuiInputBase: {
+        styleOverrides: {
+          root: {
+            backgroundColor: "white",
+          },
+          input: {
+            display: 'flex',
+            justifyContent: 'center',
+            textAlign: 'center',
+            paddingTop: '0',
+          },
+        }
       },
-      secondary: {
-        main: '#f44336',
+      MuiOutlinedInput: {
+        styleOverrides: {
+          root: {
+            backgroundColor: "white",
+          },
+          input: {
+            display: 'flex',
+            justifyContent: 'center',
+            textAlign: 'center',
+            paddingTop: '0.3rem',
+            paddingBottom: '0.3rem',
+            fontSize: '1.3rem'
+          },
+        }
       },
-    },
+
+      
+      MuiPickersPopper: {
+        styleOverrides: {
+          root: {
+            top: '-140px !important' ,
+            left: '317px !important',
+          },
+        }
+      },
+      // MuiPopper: {
+      //   styleOverrides: {
+      //     root: {
+      //       top: '-140px !important' ,
+      //       left: '318px !important',
+      //     },
+      //     select: {
+      //       inset: '10px auto auto 0px',
+      //       transform: 'translate3d(0,0,0)',
+      //       style: { transform: 'translate3d(0,0,0)' },
+      //     },
+      //   }
+      // },
+      // MuiPickersLayout: {
+      //   styleOverrides: {
+      //     root: {
+      //       top: '80px',
+      //       right: '10px',
+      //     },
+      //     select: {
+      //       inset: '10px auto auto 0px',
+      //       transform: 'translate3d(0,0,0)',
+      //       style: { transform: 'translate3d(0,0,0)' },
+      //     },
+      //   }
+      // },
+    }
   });
 
   const startTime = dayjs().set('hour', +scheduleDayStartTime.slice(0, 2)).set('minute', +scheduleDayStartTime.slice(3, 5)).set('second', 0)
-  const endTime = dayjs().set('hour', +scheduleDayEndTime.slice(0, 2)).set('minute', +scheduleDayStartTime.slice(3, 2)).set('second', 0)
+  const endTime = dayjs().set('hour', +scheduleDayEndTime.slice(0, 2)).set('minute', +scheduleDayStartTime.slice(3, 2) - 15).set('second', 0)
+  const currentDate = dayjs().set('hour', 0).set('minute', 0).set('second', 0).set('millisecond', 0)
+  const currentTime = dayjs()
 
   return(
     <div >
@@ -100,11 +168,16 @@ export const DateAndTimePicker = () => {
             value={ appointmentTime } 
             onChange={ (newTime) => setAppointmentTime(newTime) } 
             ampm={ false }
-            minTime={ startTime }
+            minTime={ currentDate.$d - appointmentDate === 0 ? currentTime : startTime }
             maxTime={ endTime }
-            skipDisabled={ true }
+            // skipDisabled={ true }
             timeSteps={{ minutes: 1}}
             views={['hours', 'minutes']}
+            inputProps={{
+              style: {
+                backgroundColor: '#202020',
+              },
+            }}
           />
         </LocalizationProvider>        
       </ThemeProvider>

@@ -13,6 +13,8 @@ import { DateAndTimePicker } from "../components/dateAndTimePicker";
 import { Authorization } from "../components/authorization";
 import { Registration } from "../components/registration";
 import { Activation } from "../components/activation";
+import { ViewTicket } from "../components/viewTicket";
+import { MyTickets } from "../components/MyTickets";
 
 export const router = createBrowserRouter([
   {
@@ -67,6 +69,14 @@ export const router = createBrowserRouter([
       {
         path: 'datetime',
         element: <DateAndTimePicker />
+      },
+      {
+        path: 'view',
+        element: <ViewTicket />
+      },
+      {
+        path: 'mytickets',
+        element: <MyTickets />
       },
     ],
   },

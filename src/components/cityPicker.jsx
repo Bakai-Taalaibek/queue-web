@@ -4,6 +4,7 @@ import '../styles/mainStyles.scss'
 import { useTranslation } from 'react-i18next'
 import { useState, useRef, useEffect } from 'react'
 import mainService from '../utilities/services'
+import arrow from '../assets/arrow.svg'
 
 
 export const CityPicker = () => {
@@ -20,6 +21,7 @@ export const CityPicker = () => {
     (async () => {
       const result = await mainService.getBranches()
       setAllBranches(result)
+      console.log(result)
       // Find all unique cities on branches object
       setCities([...new Set(result.map(item => item.city))])
     })()   
@@ -27,17 +29,17 @@ export const CityPicker = () => {
   
   const handleListVisibility = (event) => {
     setListVisibility(!listVisibility)
-
+    
     // To close the floating window by clicking anyware on the page
-    document.addEventListener('mousedown', handler)
+    document.addEventListener('click', handler, { capture: true })
     function handler(event) {
       if (!floatingWindowRef.current?.contains(event.target)) {
         setListVisibility(false)
-        document.removeEventListener('mousedown', handler)
+        document.removeEventListener('click', handler, { capture: true })
       }
     }
   }
-
+  
   const handleCityChoice = (event) => {
     setCity(event.target.value)
     setListVisibility(false)
@@ -49,36 +51,49 @@ export const CityPicker = () => {
   }
 
   return(
-    <div>
-      <h2>Получение электронной очереди</h2>
-      <p>Шаг 1/5</p>
+    <>
+      <p className="text">Получение электронной очереди</p>
 
-      <div ref={ floatingWindowRef } >
-        <button 
+      <div className='dropdown'>
+        <p className="dropdown__label">Шаг 1/5</p>
+
+        <div 
+          ref={ floatingWindowRef }
+          className="dropdown__button"
           type='button'
           onClick={ handleListVisibility }
         >
-          { parameters.city || 'Выберите город' } &#8964; 
-        </button>
+          <span className="dropdown__inner-text">{ parameters.city || 'Выберите город' }</span>
+          <span className="dropdown__arrow-symbol">&#8964;</span>          
         
-        <div style={{ visibility: listVisibility ? "visible" : "hidden" }}>
-          { cities.map((city, index) => {
-            return(
-              <button  
-                key={ index }
-                type='button' 
-                value={ city }
-                onClick={ handleCityChoice }
-              >
-                { city }                
-              </button>
-            )
-          })}
-        </div>
+          <div className="dropdown__list-container" style={{ visibility: listVisibility ? "visible" : "hidden" }}>
+            { cities.map((city, index) => {
+              return(
+                <button  
+                  className="dropdown__button dropdown__button--secondary"
+                  key={ index }
+                  type='button' 
+                  value={ city }
+                  onClick={ handleCityChoice }
+                >
+                  <span className="dropdown__inner-text dropdown__inner-text--secondary">{ city }</span>               
+                </button>
+              )
+            })}
+          </div>        
+        
+        </div>       
+
       </div>
       
-      <button disabled={ parameters.city ? false : true } onClick={ handleSubmit }>Далее</button>
+      <button 
+        style={{ display: parameters.city ? '' : 'none' }} 
+        onClick={ handleSubmit } 
+        className="arrow arrow--right"
+      >
+        <img src={ arrow } className="arrow__icon"></img>
+      </button>
 
-    </div>
+    </>
   )
 }

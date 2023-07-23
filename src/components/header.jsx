@@ -11,6 +11,7 @@ import ruIcon from '../assets/ru.svg'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useServiceChooser } from "../utilities/zustand"
 
 
 export const Header = () => {
@@ -18,10 +19,12 @@ export const Header = () => {
   const [ logoClicksCount, setLogoClicksCount ] = useState(1)
   const [ pendingTimeout, setPendingTimeout ] = useState(null)
   const navigate = useNavigate()
+  const { resetServerResponse } = useServiceChooser()
 
 
   // This function blocks the terminal if you press the logo 5 times in 5000 miliseconds. 
   const handleLogoClick = () => {
+    resetServerResponse()
     navigate('')
   }
 
@@ -46,6 +49,8 @@ export const Header = () => {
         <button className='icon-background' onClick={ () => i18n.changeLanguage('en') }>
           <img src={ enIcon } alt="english icon" className='icon-button' value='en'></img>
         </button>
+
+        <button onClick={ () => navigate('../mytickets') }>Талоны</button>
       </div>
     </div>
   )

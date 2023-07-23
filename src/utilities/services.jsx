@@ -4,7 +4,7 @@ const baseUrl = `http://rskseo.pythonanywhere.com`
 let token = null
 
 const setToken = newToken => {
-  token = newToken
+  token = `Bearer ${newToken}`
 }
 
 const register = async (credentials) => {
@@ -37,10 +37,21 @@ const getBranches = async () => {
   return response.data
 }
 
-const chosen = async newObject => {
-  const objectToSend = {...newObject, auth_token: token}
+const enqueue = async newObject => {
+  const config = {
+    headers: { Authorization: token },
+  }
 
-  const response = await axios.post(`${baseUrl}/base/terminal/queue/`, objectToSend)
+  const response = await axios.post(`${baseUrl}/talon/`, newObject, config)
+  return response.data
+}
+
+const getMyTickets = async () => {
+  const config = {
+    headers: { Authorization: token },
+  }
+
+  const response = await axios.get(`${baseUrl}/client/talons/`, config)
   return response.data
 }
 
@@ -49,6 +60,6 @@ const printDocuments = async serviceName => {
   return response.data
 }
 
-const mainService = { setToken, login, getServices, getBranches, chosen, printDocuments, register, activate }
+const mainService = { setToken, login, getServices, getBranches, enqueue, printDocuments, register, activate, getMyTickets }
 
 export default mainService

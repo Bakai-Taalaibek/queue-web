@@ -1,25 +1,32 @@
 import { Outlet } from "react-router-dom";
 import './styles/mainStyles.scss'
 import { Header } from './components/header'
-import { Footer } from './components/footer';
 import { useEffect } from 'react'
+import { useServiceChooser } from "./utilities/zustand"
+import mainService from './utilities/services'
 
 function App({ errorOutlet }) {
+  const { setUser } = useServiceChooser()
+
   useEffect(() => {
-    // Check localstorage, if login data is there - populate global login state 
-    console.log('hi')
+    const loggedUserJSON = window.localStorage.getItem('loggedQueueWebUser')   
+    if (loggedUserJSON) {      
+      const storedUser = JSON.parse(loggedUserJSON)      
+
+      setUser(storedUser)    
+      mainService.setToken(storedUser.token)    
+    }  
   }, [])
 
   return (
-    <div className='main'> 
+    <> 
       <Header />
 
-      <div className='body'>
+      <div className='glass-container glass-container--grid-three'>
         { errorOutlet ? errorOutlet : <Outlet /> }
       </div>
 
-      <Footer />
-    </div>
+    </>
   )
 }
 
