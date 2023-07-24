@@ -53,29 +53,29 @@ export const CityPicker = () => {
     <div className='glass-container glass-container--grid-3'>
       <p className="text">Получение электронной очереди</p>
 
-      <div className='dropdown'>
-        <p className="dropdown__label">Шаг 1/5</p>
+      <div className='picker'>
+        <p className="picker__label">Шаг 1/5</p>
 
         <div 
           ref={ floatingWindowRef }
-          className="dropdown__button"
+          className="picker__button"
           type='button'
           onClick={ handleListVisibility }
         >
-          <span className="dropdown__inner-text">{ parameters.city || 'Выберите город' }</span>
-          <span className="dropdown__arrow-symbol">&#8964;</span>          
+          <span className="picker__inner-text">{ parameters.city || 'Выберите город' }</span>
+          <span className="picker__arrow-symbol">&#8964;</span>          
         
-          <div className="dropdown__list-container" style={{ visibility: listVisibility ? "visible" : "hidden" }}>
+          <div className="picker__list-container" style={{ visibility: listVisibility ? "visible" : "hidden" }}>
             { cities.map((city, index) => {
               return(
                 <button  
-                  className="dropdown__button dropdown__button--secondary"
+                  className="picker__button picker__button--secondary"
                   key={ index }
                   type='button' 
                   value={ city }
                   onClick={ handleCityChoice }
                 >
-                  <span className="dropdown__inner-text dropdown__inner-text--secondary">{ city }</span>               
+                  <span className="picker__inner-text picker__inner-text--secondary">{ city }</span>               
                 </button>
               )
             })}

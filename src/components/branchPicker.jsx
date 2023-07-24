@@ -48,29 +48,29 @@ export const BranchPicker = () => {
         <img src={ arrow } className="arrow__icon"></img>
       </button>  
 
-      <div className='dropdown' >
-        <p className="dropdown__label">Шаг 2/5</p>
+      <div className='picker' >
+        <p className="picker__label">Шаг 2/5</p>
 
         <div 
           ref={ floatingWindowRef }
-          className="dropdown__button"
+          className="picker__button"
           type='button'
           onClick={ handleListVisibility }
         >
-          <span className="dropdown__inner-text">{ parameters.branchAddress || 'Выберите филиал' }</span>
-          <span className="dropdown__arrow-symbol">&#8964;</span>          
+          <span className="picker__inner-text">{ parameters.branchAddress || 'Выберите филиал' }</span>
+          <span className="picker__arrow-symbol">&#8964;</span>          
         
-          <div className="dropdown__list-container" style={{ visibility: listVisibility ? "visible" : "hidden" }}>
+          <div className="picker__list-container" style={{ visibility: listVisibility ? "visible" : "hidden" }}>
             { allBranches.filter(branch => branch.city === parameters.city).map((branch, index) => {
               return(
                 <button  
-                  className="dropdown__button dropdown__button--secondary"
+                  className="picker__button picker__button--secondary"
                   key={ index }
                   type='button' 
                   // value={ branch.address }
                   onClick={ () => handleBranchChoice(branch) }
                 >
-                  <span className="dropdown__inner-text dropdown__inner-text--secondary">{ branch.address }</span>               
+                  <span className="picker__inner-text picker__inner-text--secondary">{ branch.address }</span>               
                 </button>
               )
             })}

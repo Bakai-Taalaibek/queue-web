@@ -10,7 +10,6 @@ export const MyTickets = () => {
     })()
   }, [])
 
-  console.log(myTickets)
   return (
     <>
       { myTickets.map((ticket, index) => {

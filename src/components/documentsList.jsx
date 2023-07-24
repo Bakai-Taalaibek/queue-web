@@ -15,6 +15,8 @@ import ReactPDF from '@react-pdf/renderer';
 import * as ReactDOM from 'react-dom';
 import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer'
 import Inter from '../assets/Inter-Medium.ttf'
+import print from '../assets/print.svg'
+import download from '../assets/download.svg'
 
 
 export const DocumentsList = () => {
@@ -31,47 +33,6 @@ export const DocumentsList = () => {
     printDocuments()
   }
 
-  // const handleEnqueue = async () => {
-  //   const result = await mainService.chosen(parameters)
-  //   await setServerResponse(result)
-
-  //   printTalons()
-
-  //   resetParameters()
-  //   navigate('/')
-  // }
-
-  // const handleDownload = async (domElement) => {
-  //   // const elementForSaving = await document.querySelector("#documentsPrintRef")
-  //   const documentsAsPDF = new JsPDF('portrait','pt', 'a4')
-  //   const canvas = await html2canvas(domElement, { scale: 1, onclone: (document) => {
-  //     document.querySelector().style.color = 'black'
-  //   }})  
-  //   const divImage = canvas.toDataURL("image/png")
-
-  //   documentsAsPDF.addImage(divImage, 'PNG', 0, 0);
-  //   documentsAsPDF.save("documents.pdf");
-  //   // html2canvas(elementForSaving).then(function (canvas) {
-  //   //   const divImage = canvas.toDataURL("image/png")
-  //   //   console.log('1')
-  //   //   documentsAsPDF.addImage(divImage, 'PNG', 0, 0);
-  //   //   console.log('2')
-  //   //   documentsAsPDF.save("documents.pdf");
-  //   // })
-
-  //   // const myFont = 'src/assets/Inter-Medium.ttf'
-
-  //   // // add the font to jsPDF
-  //   // documentsAsPDF.addFileToVFS("MyFont.ttf", myFont);
-  //   // documentsAsPDF.addFont("MyFont.ttf", "MyFont", "normal");
-  //   // documentsAsPDF.setFont("MyFont");
-  //   // documentsAsPDF.html(htmlForPrinting).then(() => {
-  //   //   documentsAsPDF.save('documents.pdf')
-  //   // })
-
-
-  //   // ReactDOM.render(<DocumentsForSaving />, 'example.pdf');
-  // }
   Font.register({ family: 'Roboto', fonts: [
     { src: "src/assets/Roboto-Regular.ttf" }, // font-style: normal, font-weight: normal
     { src: "src/assets/Roboto-Italic.ttf", fontStyle: 'italic' },
@@ -141,40 +102,60 @@ export const DocumentsList = () => {
   ) 
 
   return (
-    <>
-      <button className='icon-background icon-background--arrow'>
-        <img src={ arrow } onClick={ () => navigate(-1) } className='icon-button icon-button--arrow'></img>
-      </button>
+    <div className='glass-container '>
 
-      <p className="text">{ t('listOfDocuments') }</p>
-      <ul className='document-items'>
-        { documents.map((document, index) => { 
-          return(
-            <li key={ index } className='text text--smaller' style={{ textAlign: 'left' }}>
-              <span>{ (document.lang_name.find(option => option.lang === i18n.language) || {}).text || document.name }</span> 
-              <span>{ documents.length === index + 1 ? '' : ';' }</span>
-              <span style={{ fontSize: '20px' }}>{ document.required ? '*' : '' }</span>
-            </li>
-          )
-        }) }
-      </ul>
-      <p className="text text--smaller-17"><i>{ t('requiredDocuments') }</i></p>
+      <button 
+        onClick={ () => navigate(-1) } 
+        className="arrow arrow--left"
+      >
+        <img src={ arrow } className="arrow__icon"></img>
+      </button> 
 
-      <div className='horisontal-group'>
-        <PDFDownloadLink document={<DocumentsForSaving />} style={{ textDecoration: 'none' }} fileName="documents.pdf" className='button'>
-          {({ blob, url, loading, error }) =>
-            loading ? 'Минуточку...' : 'Сохранить'
-          }
-        </PDFDownloadLink>
+      <div className='picker'>
+        <p className="text ">{ t('listOfDocuments') } </p>
+        <p className='text text--medium'>"{ (parameters.serviceName.find(option => option.lang === i18n.language) || {}).text }"</p>
+        <ul className='document-items'>
+          { documents.map((document, index) => { 
+            return(
+              <li key={ index } className='text text--smaller' style={{ textAlign: 'left' }}>
+                <span>{ (document.lang_name.find(option => option.lang === i18n.language) || {}).text || document.name }</span> 
+                <span>{ documents.length === index + 1 ? '' : ';' }</span>
+                <span style={{ fontSize: '20px' }}>{ document.required ? '*' : '' }</span>
+              </li>
+            )
+          }) }
+        </ul>
+        <p className="text text--smaller"><i>{ t('requiredDocuments') }</i></p>
 
-        <button className='button' onClick={ handlePrintDocuments }>{ t('print') }</button>
-        <button onClick={ () => navigate('../ticket') }>Далее</button>  
+        <div className='horisontal-group'>
+
+          <div className='icon icon--print' onClick={ handlePrintDocuments }>
+            <img  src={ print } ></img>          
+          </div>
+
+          <PDFDownloadLink document={<DocumentsForSaving />} fileName="documents.pdf">
+            {/* {({ blob, url, loading, error }) =>
+              loading ? 'Минуточку...' : 'Сохранить'
+            } */}
+            <img className='icon' src={ download } ></img>    
+          </PDFDownloadLink>
+
+        </div>
+
+
+        <button 
+          onClick={ () => navigate('../ticket') } 
+          className="arrow arrow--right"
+        >
+          <img src={ arrow } className="arrow__icon"></img>
+        </button> 
+
       </div>
 
       <div style={{ display: 'none' }} >
         <TalonToPrint  ref={ talonPrintRef }/> 
         <DocumentsToPrint ref={ documentsPrintRef } />
       </div>
-    </>
+    </div>
   )
 }

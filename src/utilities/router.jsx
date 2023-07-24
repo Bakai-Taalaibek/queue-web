@@ -14,7 +14,7 @@ import { Authorization } from "../components/authorization";
 import { Registration } from "../components/registration";
 import { Activation } from "../components/activation";
 import { ViewTicket } from "../components/viewTicket";
-import { MyTickets } from "../components/MyTickets";
+import { MyTickets } from "../components/myTickets";
 
 export const router = createBrowserRouter([
   {

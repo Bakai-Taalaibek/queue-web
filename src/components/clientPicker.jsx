@@ -16,34 +16,50 @@ export const ClientInfo = () => {
   }
 
   return (
-    <>
-      <button className='icon-background icon-background--arrow'>
-        <img src={ arrow } onClick={ () => navigate(-1) } className='icon-button icon-button--arrow'></img>
-      </button>
+    <div className='glass-container glass-container--grid-2'>
+
+      <button 
+        onClick={ () => navigate(-1) } 
+        className="arrow arrow--left"
+      >
+        <img src={ arrow } className="arrow__icon"></img>
+      </button> 
 
       {/* <button onClick={ () => navigate(-1) } className='icon-button icon-button--absolute'></button> */}
 
-      <form className='centered-form'>
-        <p className="text">{ t('chooseClientType') }</p>
-        <div style={ { display: 'flex', marginTop: '20px' } }>
-          <p 
-            className='button' style={ { backgroundColor: parameters.client_type === 'physical' ? '#cccccc' : '' } } 
-            onClick={ () => setPersonState('physical') }>{ t('individual') }
-          </p>
+      <p className="text">{ t('chooseClientType') }</p>
 
-          <p 
-            className='button' style={ { backgroundColor: parameters.client_type === 'legal' ? '#cccccc' : '' } } 
-            onClick={ () => setPersonState('legal') }>{ t('legalEntity') }
-          </p>
+      <div className="picker">
+        <p className="picker__label">Шаг 4/5</p>
+        <div className="horisontal-group">
+          <div
+            className='button' style={ { backgroundColor: parameters.client_type === 'physical' ? '#70b7fa' : '' } } 
+            onClick={ () => setPersonState('physical') }><p className="text text--button">{ t('individual') }</p>
+          </div>
+
+          <div 
+            className='button ' style={ { backgroundColor: parameters.client_type === 'legal' ? '#70b7fa' : '' } } 
+            onClick={ () => setPersonState('legal') }><p className="text text--button">{ t('legalEntity') }</p>
+          </div>          
         </div>
 
         <div className="checkbox-container" >
           <input onClick={ () => setPensionerState(!parameters.is_pensioner) } type="checkbox" id="pensioner" name="pensioner" />
           <label className="text text--smaller" htmlFor="pensioner">{ t('iAmApensioner') }</label>
+          <div style={{ visibility: parameters.is_pensioner ? '' : 'hidden' }} className="checkmark"></div>
         </div>
 
-        <button className="button button--smaller" type="button" onClick={ handleSubmit }>{ t('onward') }</button>
-      </form>
-    </>
+      </div>
+
+
+      <button 
+        style={{ display: parameters.client_type ? '' : 'none' }} 
+        onClick={ handleSubmit } 
+        className="arrow arrow--right"
+      >
+        <img src={ arrow } className="arrow__icon"></img>
+      </button>  
+      
+    </div>
   )
 }

@@ -5,7 +5,8 @@ export const useServiceChooser = create((set, get) => ({
 		city: null,
 		address: null,
 		service: null,
-		client_type: 'physical',
+		serviceName: [],
+		client_type: null,
 		is_pensioner: false,
 		is_appointment: null,
 		comment: null,
@@ -13,7 +14,7 @@ export const useServiceChooser = create((set, get) => ({
 		branchAddress: ''
 	},
 	setService: (newService) => {
-		set({ parameters: {...get().parameters, service: newService} })
+		set({ parameters: {...get().parameters, service: newService.id, serviceName: newService.lang_name } })
 	},
 	setPersonState: (newPerson) => {
 		set({ parameters: {...get().parameters, client_type: newPerson} })
@@ -70,7 +71,8 @@ export const useServiceChooser = create((set, get) => ({
 			city: null,
 			address: null,
 			service: null,
-			client_type: 'physical',
+			serviceName: [],
+			client_type: null,
 			is_pensioner: false,
 			is_appointment: null,
 			comment: null,
