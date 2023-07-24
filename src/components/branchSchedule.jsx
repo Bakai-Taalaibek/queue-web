@@ -1,5 +1,6 @@
 import { useServiceChooser } from "../utilities/zustand"
 import { useNavigate } from 'react-router-dom'
+import arrow from '../assets/arrow.svg'
 
 
 export const BranchSchedule = () => {
@@ -14,18 +15,31 @@ export const BranchSchedule = () => {
   const endTime = currentBranch.work_time_end.substring(0,5)
 
   return( 
-    <div>
-      <p>Адрес: { parameters.branchAddress }</p>
-      <p>Понедельник { startTime } - { endTime }</p>
-      <p>Вторник { startTime } - { endTime }</p>
-      <p>Среда { startTime } - { endTime }</p>
-      <p>Четверг { startTime } - { endTime }</p>
-      <p>Пятница { startTime } - { endTime }</p>
-      <p>Суббота { startTime } - { endTime }</p>
-      <p>Воскресенье { startTime } - { endTime }</p>    
+    <div className='glass-container glass-container--grid-2'>    
+      <button 
+          onClick={ () => navigate(-1) } 
+          className="arrow arrow--left"
+        >
+        <img src={ arrow } className="arrow__icon"></img>
+      </button> 
 
-      
-      <button onClick={ () => navigate('../service') }>Далее</button>  
+      <p className="text">Адрес: { parameters.branchAddress }</p>
+      <div className="schedule">
+        <div><span>Понедельник</span> <span>{ startTime } - { endTime }</span></div>
+        <div><span>Вторник</span> <span>{ startTime } - { endTime }</span></div>
+        <div><span>Среда</span> <span>{ startTime } - { endTime }</span></div>
+        <div><span>Четверг</span> <span>{ startTime } - { endTime }</span></div>
+        <div><span>Пятница</span> <span>{ startTime } - { endTime }</span></div>
+        <div><span>Суббота</span> <span>{ startTime } - { endTime }</span></div>
+        <div><span>Воскресенье</span> <span>{ startTime } - { endTime }</span></div>
+      </div>
+ 
+      <button 
+        onClick={ () => navigate('../service') } 
+        className="arrow arrow--right"
+      >
+        <img src={ arrow } className="arrow__icon"></img>
+      </button>    
     </div>
   )
 }

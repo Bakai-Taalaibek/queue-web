@@ -22,10 +22,9 @@ function App({ errorOutlet }) {
     <> 
       <Header />
 
-      <div className='glass-container glass-container--grid-three'>
-        { errorOutlet ? errorOutlet : <Outlet /> }
-      </div>
+      { errorOutlet ? errorOutlet : <Outlet /> }
 
+      <div className="footer"></div>
     </>
   )
 }

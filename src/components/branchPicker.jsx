@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import '../styles/mainStyles.scss'
 import { useTranslation } from 'react-i18next'
 import { useState, useRef } from 'react'
+import arrow from '../assets/arrow.svg'
 
 
 export const BranchPicker = () => {
@@ -37,35 +38,56 @@ export const BranchPicker = () => {
   }
 
   return(
-    <div>
-      <h2>Получение электронной очереди</h2>
-      <p>Шаг 2/5</p>
+    <div className='glass-container glass-container--grid-3'>
+      <p className="text">Получение электронной очереди</p>
+      
+      <button 
+        onClick={ () => navigate(-1) } 
+        className="arrow arrow--left"
+      >
+        <img src={ arrow } className="arrow__icon"></img>
+      </button>  
 
-      <div ref={ floatingWindowRef } >
-        <button 
+      <div className='dropdown' >
+        <p className="dropdown__label">Шаг 2/5</p>
+
+        <div 
+          ref={ floatingWindowRef }
+          className="dropdown__button"
           type='button'
           onClick={ handleListVisibility }
         >
-          { parameters.branchAddress || 'Выберите филиал' } &#8964; 
-        </button>
+          <span className="dropdown__inner-text">{ parameters.branchAddress || 'Выберите филиал' }</span>
+          <span className="dropdown__arrow-symbol">&#8964;</span>          
         
-        <div style={{ visibility: listVisibility ? "visible" : "hidden" }}>
-          { allBranches.filter(branch => branch.city === parameters.city).map((branch, index) => {
-            return(
-              <button  
-                key={ index }
-                type='button' 
-                onClick={ () => handleBranchChoice(branch) }
-              >
-                { branch.address }                
-              </button>
-            )
-          })}
-        </div>
+          <div className="dropdown__list-container" style={{ visibility: listVisibility ? "visible" : "hidden" }}>
+            { allBranches.filter(branch => branch.city === parameters.city).map((branch, index) => {
+              return(
+                <button  
+                  className="dropdown__button dropdown__button--secondary"
+                  key={ index }
+                  type='button' 
+                  // value={ branch.address }
+                  onClick={ () => handleBranchChoice(branch) }
+                >
+                  <span className="dropdown__inner-text dropdown__inner-text--secondary">{ branch.address }</span>               
+                </button>
+              )
+            })}
+          </div>        
+        
+        </div>       
+
       </div>
       
-      <button disabled={ parameters.branch ? false : true } onClick={ handleSubmit }>Далее</button>
-
+      <button 
+        style={{ display: parameters.branch ? '' : 'none' }} 
+        onClick={ handleSubmit } 
+        className="arrow arrow--right"
+      >
+        <img src={ arrow } className="arrow__icon"></img>
+      </button>    
+      
     </div>
   )
 }

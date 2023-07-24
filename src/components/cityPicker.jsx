@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useState, useRef, useEffect } from 'react'
 import mainService from '../utilities/services'
 import arrow from '../assets/arrow.svg'
-
+ 
 
 export const CityPicker = () => {
   const { parameters, setCity, setAllBranches } = useServiceChooser()
@@ -21,7 +21,6 @@ export const CityPicker = () => {
     (async () => {
       const result = await mainService.getBranches()
       setAllBranches(result)
-      console.log(result)
       // Find all unique cities on branches object
       setCities([...new Set(result.map(item => item.city))])
     })()   
@@ -51,7 +50,7 @@ export const CityPicker = () => {
   }
 
   return(
-    <>
+    <div className='glass-container glass-container--grid-3'>
       <p className="text">Получение электронной очереди</p>
 
       <div className='dropdown'>
@@ -94,6 +93,6 @@ export const CityPicker = () => {
         <img src={ arrow } className="arrow__icon"></img>
       </button>
 
-    </>
+    </div>
   )
 }

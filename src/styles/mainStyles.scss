@@ -34,14 +34,16 @@ html, body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+  justify-content: space-between;
+  // align-items: stretch;
+  // align-content: space-between;
 
+
+  // --gridHeight: 120px;
+  // --wrapperH: 40px; // for demonstrating the use of CSS Variables
+}
 .header {
-  height: 8em;
-  margin: auto;
-  float: none;
+  height: 8rem;
   overflow: hidden;
   display: flex;  
   justify-content: space-between;
@@ -49,11 +51,16 @@ html, body {
   padding-left: 30px;
   padding-right: 30px;
   padding-top: 10px;
+  // width: 100%;
 
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  // position: absolute;
+  // top: 0;
+  // left: 0;
+  // right: 0;
+}
+.footer {
+  height: 8rem;
+  flex-shrink: 10;
 }
 
 .glass-container {
@@ -64,6 +71,8 @@ html, body {
   -webkit-backdrop-filter: blur(2px);
   border: 1px solid rgba(255, 255, 255, 0.494);
   
+  align-self: center;
+
   position: relative;
   display: flex;
   flex-direction: column;
@@ -72,14 +81,18 @@ html, body {
   text-align: center;
   padding: 1rem;
   min-width: 45%;
+  margin: 0 1%;
   min-height: 33%;
-}
-.glass-container--grid-three {
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
-
 }
-
+.glass-container--grid-3 {
+  grid-template-rows: repeat(3, 1fr);
+}
+.glass-container--grid-2 {
+  grid-template-rows: 4rem auto;
+  padding-top: 2rem;
+  align-items: start;
+}
 
 .dropdown {
   display: flex;
@@ -90,6 +103,7 @@ html, body {
 }
 .dropdown__label {
   font-size: 1rem;
+  text-align: left;
 }
 .dropdown__button {
   position: relative;
@@ -155,59 +169,68 @@ html, body {
   z-index: -1;
 }
 
-
 .text {
   font-size: 1.7rem;
   margin: 0;
 }
-
-
-.button {
-  cursor: pointer;
-  background-color: white;
-  color: black;
-  font-size: 20px;
-  font-family: Inter-SemiBold, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  // text-align: center;
-  border-radius: 30px;
-  border: 0;
-  width: 280px;
-  height: 80px;
-  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px;
+.text--services {
+  font-size: 1.5rem;
 }
-.button--smaller {
-  font-size: 20px;
-  width: 270px;
-  height: 75px;  
-}
-.button--bigger {
-  font-size: 15px;
-  width: 200px;
-  height: 200px;
-  flex-direction: column;
-}
-
 
 .arrow {
   position: absolute;
   top: 40%;
-  right: 4%;
   background-color: transparent;
   border: none;
   cursor: pointer;
 }
+.arrow--left {
+  left: 4%;
+}
 .arrow--right {
   transform: rotate(180deg);
+  right: 4%;
 }
 .arrow__icon {
   width: 1.5rem;
   aspect-ratio: 1 / 1; 
 }
 
+.schedule {
+  display: flex;
+  flex-direction: column;
+}
+.schedule > * {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.4rem 0;
+}
+
+.services {
+  display: grid;
+  grid-template-rows: repeat(var(--rowNum), 1fr);
+  grid-template-columns: repeat(var(--colNum), 1fr);
+}
+
+.button {
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  border-radius: 20px;
+  border: 0;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15rem;
+  height: 5rem;
+  margin: 0.6rem;
+}
+.button--services {
+  min-width: 8rem;
+  min-height: 3rem;
+}
 
 .centered-form {
   display: flex;
