@@ -174,8 +174,8 @@ html, body {
 }
 .text--button {
   font-size: 1.1rem;
-  color: #383838;
-  font-weight: lighter;
+  color: #222222;
+  // font-weight: lighter;
 }
 .text--medium {
   font-size: 1.3rem;
@@ -292,7 +292,7 @@ html, body {
 
 .icon {
   width: 2rem;
-  position: absolute;
+  position: relative;
   right: 10%;
   bottom: 1rem;
   cursor: pointer;
@@ -401,7 +401,7 @@ html, body {
 
 .logo-custom {
   content: '';
-  // position: absolute;
+  position: relative;
   width: 3em;
   height: 3em;
   border: 2em solid white;
@@ -413,8 +413,8 @@ html, body {
 .logo-custom::before {
   content: '';
   position: absolute;
-  top: 14px;
-  left: 4px;
+  top: 0.38rem;
+  left: -0.1rem;
   width: 1.8em;
   height: 1.8em;
   border: 2em solid white;
@@ -425,8 +425,8 @@ html, body {
 .logo-custom::after {
   content: '';
   position: absolute;
-  width: 2.2em;
-  height: 2.2em;
-  border: 2em solid $secondary-background-color;
-  border-width: 6.5px;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 2rem solid $secondary-background-color;
+  border-width: 0.44rem;
 }
