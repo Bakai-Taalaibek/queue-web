@@ -21,6 +21,7 @@ export const CityPicker = () => {
     (async () => {
       const result = await mainService.getBranches()
       setAllBranches(result)
+      console.log(result)
       // Find all unique cities on branches object
       setCities([...new Set(result.map(item => item.city))])
     })()   
@@ -48,6 +49,7 @@ export const CityPicker = () => {
     event.preventDefault
     navigate('../branch')
   }
+  console.log()
 
   return(
     <div className='glass-container glass-container--grid-3'>

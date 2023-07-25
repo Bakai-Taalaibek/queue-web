@@ -125,23 +125,19 @@ export const DocumentsList = () => {
             )
           }) }
         </ul>
-        <p className="text text--smaller"><i>{ t('requiredDocuments') }</i></p>
+        <p className="text text--smaller" style={{ marginBottom: '2rem'}}><i>{ t('requiredDocuments') }</i></p>
 
-        <div className='horisontal-group'>
 
-          <div className='icon icon--print' onClick={ handlePrintDocuments }>
-            <img  src={ print } ></img>          
-          </div>
-
-          <PDFDownloadLink document={<DocumentsForSaving />} fileName="documents.pdf">
-            {/* {({ blob, url, loading, error }) =>
-              loading ? 'Минуточку...' : 'Сохранить'
-            } */}
-            <img className='icon' src={ download } ></img>    
-          </PDFDownloadLink>
-
+        <div className='icon icon--print' onClick={ handlePrintDocuments }>
+          <img  src={ print } ></img>          
         </div>
 
+        <PDFDownloadLink document={<DocumentsForSaving />} fileName="documents.pdf">
+          {/* {({ blob, url, loading, error }) =>
+            loading ? 'Минуточку...' : 'Сохранить'
+          } */}
+          <img className='icon' src={ download } ></img>    
+        </PDFDownloadLink>
 
         <button 
           onClick={ () => navigate('../ticket') } 

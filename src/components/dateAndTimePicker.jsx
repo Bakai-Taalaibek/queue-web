@@ -9,11 +9,15 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import dayjs from 'dayjs';
+import arrow from '../assets/arrow.svg'
+import { useNavigate } from 'react-router-dom'
+
 
 export const DateAndTimePicker = () => {
   const [appointmentDate, setAppointmentDate] = useState(null)
   const [appointmentTime, setAppointmentTime] = useState(dayjs().set('hour', 9).startOf('hour'))
-  const { parameters, allBranches } = useServiceChooser()
+  const { parameters, setServerResponse, resetSomeState, setIsAppointment, allBranches } = useServiceChooser()
+  const navigate = useNavigate()
 
   const addDays = (date, days) => {
     const initialDate = new Date(date)
@@ -40,7 +44,20 @@ export const DateAndTimePicker = () => {
   const scheduleDayEndTime = allBranches.find(branch => branch.id === parameters.branch).work_time_end
   const scheduleHour = +scheduleDayEndTime.slice(0, 2)
   const scheduleMinute = +scheduleDayEndTime.slice(3, 5)
+  
+  const handleEnqueue = async () => {
+    const result = await mainService.enqueue(parameters)
+    await setServerResponse(result)
+    console.log(result)
+    resetSomeState()
+    navigate('../view')
+  }
 
+  const handleCancel = () => {
+    resetSomeState()
+    navigate('/')
+  }
+  
   let firstDay = new Date() 
   if (currentHour > scheduleHour) {
     firstDay = addDays(firstDay, 1)
@@ -66,23 +83,30 @@ export const DateAndTimePicker = () => {
     //   },
     // },    
     components: {
-      MuiInputBase: {
-        styleOverrides: {
-          root: {
-            backgroundColor: "white",
-          },
-          input: {
-            display: 'flex',
-            justifyContent: 'center',
-            textAlign: 'center',
-            paddingTop: '0',
-          },
-        }
-      },
+      // MuiInputBase: {
+      //   styleOverrides: {
+      //     root: {
+      //       backgroundColor: "white",
+      //       border: 'none',
+      //     },
+      //     input: {
+      //       display: 'flex',
+      //       justifyContent: 'center',
+      //       textAlign: 'center',
+      //       paddingTop: '0',
+      //     },
+      //   }
+      // },
       MuiOutlinedInput: {
         styleOverrides: {
           root: {
+            alignSelf: 'center',
             backgroundColor: "white",
+            border: 'none',
+            outline: 'none',
+            width: '24rem',
+            height: '2.5rem',
+            paddingLeft: '3rem'
           },
           input: {
             display: 'flex',
@@ -92,10 +116,13 @@ export const DateAndTimePicker = () => {
             paddingBottom: '0.3rem',
             fontSize: '1.3rem'
           },
+          '&.Mui-active': {
+            border: 'none',
+            ouline: 'none',
+          }
         }
-      },
-
-      
+      },      
+      // To move the popup window to the right
       MuiPickersPopper: {
         styleOverrides: {
           root: {
@@ -104,6 +131,25 @@ export const DateAndTimePicker = () => {
           },
         }
       },
+      // To prevent scrolling wheel from hiding numbers
+      MuiMultiSectionDigitalClockSection: {
+        styleOverrides: {
+          root: {
+            width: '5rem',
+          },
+          active: {
+            border: 'none',
+            outline: 'none',
+          },
+          item: {
+            margin: '0 auto'
+          },
+          active: {
+            border: 'none',
+            outline: 'none',
+          }
+        }
+      }
       // MuiPopper: {
       //   styleOverrides: {
       //     root: {
@@ -139,51 +185,77 @@ export const DateAndTimePicker = () => {
   const currentTime = dayjs()
 
   return(
-    <div >
-      <p>Выберите дату</p>
-      
-      <DatePicker 
-        selected={ appointmentDate } 
-        onChange={ (newDate) => setAppointmentDate(newDate) } 
-        minDate={ firstDay }
-        maxDate={ lastDay }      
-        monthsShown={ monthsToShow }
-        dateFormat="dd.MM.yyyy"
-        calendarStartDay={ 1 }
-        locale={ ru }
-        popperModifiers={[
-          {
-            name: "offset",
-            options: {
-              offset: [ monthsToShow === 2 ? -150 : -30, 0],
-            },
-          }
-        ]}
-      />
-      <p>Выберите время</p>
+    <div className='glass-container glass-container--grid-3'>
+      <button 
+        onClick={ () => navigate(-1) } 
+        className="arrow arrow--left"
+      >
+        <img src={ arrow } className="arrow__icon"></img>
+      </button> 
 
-      <ThemeProvider theme={ theme }>   
-        <LocalizationProvider dateAdapter={ AdapterDayjs }>
-          <TimePicker         
-            value={ appointmentTime } 
-            onChange={ (newTime) => setAppointmentTime(newTime) } 
-            ampm={ false }
-            minTime={ currentDate.$d - appointmentDate === 0 ? currentTime : startTime }
-            maxTime={ endTime }
-            // skipDisabled={ true }
-            timeSteps={{ minutes: 1}}
-            views={['hours', 'minutes']}
-            inputProps={{
-              style: {
-                backgroundColor: '#202020',
+      <p className='text'>Выберите дату и время</p>
+
+      <div className='picker' style={{ marginBottom: '1.3rem' }}>
+        <DatePicker 
+          wrapperClassName="datePicker"
+          selected={ appointmentDate } 
+          onChange={ (newDate) => setAppointmentDate(newDate) } 
+          minDate={ firstDay }
+          maxDate={ lastDay }      
+          monthsShown={ monthsToShow }
+          dateFormat="dd.MM.yyyy"
+          calendarStartDay={ 1 }
+          locale={ ru }
+          popperModifiers={[
+            {
+              name: "offset",
+              options: {
+                offset: [ monthsToShow === 2 ? -50 : -30, 0],
               },
-            }}
-          />
-        </LocalizationProvider>        
-      </ThemeProvider>
+            }
+          ]}
+        />
+        {/* <p className='text'>Выберите время</p> */}
+
+        <ThemeProvider theme={ theme }>   
+          <LocalizationProvider dateAdapter={ AdapterDayjs }>
+            <TimePicker         
+              value={ appointmentTime } 
+              onChange={ (newTime) => setAppointmentTime(newTime) } 
+              ampm={ false }
+              minTime={ currentDate.$d - appointmentDate === 0 ? currentTime : startTime }
+              maxTime={ endTime }
+              // skipDisabled={ true }
+              timeSteps={{ minutes: 1}}
+              views={['hours', 'minutes']}
+              inputProps={{
+                style: {
+                  backgroundColor: '#202020',
+                },
+              }}
+            />
+          </LocalizationProvider>        
+        </ThemeProvider> 
+      </div>
       
-      <button disabled={ appointmentDate ? false : true } onClick={ handleSubmit }>Далее</button>
-        
+      
+      <div className="horisontal-group">
+        <div 
+          className="button"
+          // style={{ display: parameters.is_appointment === false ? 'block' : 'none' }} 
+          onClick={ handleCancel }
+        >
+          Отменить
+        </div>
+        <div 
+          className={`button button--blue ${ appointmentDate ? '' : 'button--disabled' }`}
+          onClick={ handleEnqueue }
+        >
+          Получить талон
+        </div>
+      </div>
+
+
     </div>
   )
 }
