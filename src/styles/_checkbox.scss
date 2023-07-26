@@ -1,0 +1,46 @@
+.checkbox-container {
+    position: relative;
+    margin-top: 1.1rem;
+    // margin-bottom: 30px;
+    margin-left: auto;
+  }
+  .checkbox-container label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+  }
+  .checkbox-container label::before {
+    content: '';
+    width: 1.3em;
+    height: 1.3em;
+    border-radius: 0.4em;
+    margin-right: 0.5em;
+    border: 0.15em solid white;
+  }
+  .checkmark {
+    cursor: pointer;
+    position: absolute;
+    left: 0.6rem;
+    top: 0.3rem;
+    width: 0.35em;
+    height: 0.75em;
+    margin-right: 0.5em;
+    border: 0.15em solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+  }
+  .checkmark--auth {
+    left: 0.5rem;
+    top: 0.2rem;
+  }
+  .checkbox-container input[type='checkbox'] {
+    cursor: pointer;
+    opacity: 0;
+    position: absolute;
+  }
+
+
+  .checkbox--left {
+    margin: auto auto auto 0;
+  }

@@ -1,0 +1,37 @@
+
+.button {
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border-radius: 15px;
+    border: 0;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 12rem;
+    height: 3rem;
+    // margin: 0.6rem;
+    justify-self: center;
+  }
+  .button--services {
+    min-width: 8rem;
+    min-height: 3rem;
+  }
+  .button--blue {
+    background-color:  #274eb9;
+    color: white;
+    font-weight: bold;
+  }
+  .button--disabled {
+    cursor: default;
+    background-color: #b1b1b1;
+  }
+  .button--long {
+    min-width: 23rem;
+    margin: 0.4rem 0;
+  }
+.button--50 {
+    width: 50%;
+}  

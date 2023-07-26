@@ -135,14 +135,14 @@ export const DateAndTimePicker = () => {
       MuiMultiSectionDigitalClockSection: {
         styleOverrides: {
           root: {
-            width: '5rem',
+            width: '6rem',
           },
           active: {
             border: 'none',
             outline: 'none',
           },
           item: {
-            margin: '0 auto'
+            marginLeft: '1.5rem'
           },
           active: {
             border: 'none',

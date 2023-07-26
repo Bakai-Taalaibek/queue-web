@@ -32,8 +32,9 @@ export const Registration = () => {
   }
 
   return (
-    <div >
-      <h2>Создание нового аккаунта</h2>
+    <div className='glass-container'>
+      <p className='text'>Создание нового аккаунта</p>
+
       <form onSubmit={ handleRegistration }>
         <div>
           Введите номер телефона &#9432;
@@ -64,10 +65,14 @@ export const Registration = () => {
                   onChange={({ target }) => setPassword_confirm(target.value)}
           />
         </div>
-        
-        <button>Уже есть акаунт</button>
-        <button type='submit'>Создать аккаунт</button>
+
+        <div className='horisontal-group'>
+          <div className='button button--50' onClick={ () => navigate('../authorization')}>Уже есть акаунт</div>
+          <div className='button button--blue button--50' type='submit'>Создать аккаунт</div>
+        </div>
       </form>
+
+
     </div>
   )
 }

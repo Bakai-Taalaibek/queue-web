@@ -16,7 +16,7 @@ export const ClientInfo = () => {
   }
 
   return (
-    <div className='glass-container glass-container--grid-2'>
+    <div className='glass-container glass-container--grid-3-uneven'>
 
       <button 
         onClick={ () => navigate(-1) } 

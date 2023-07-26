@@ -218,7 +218,7 @@ export const ServicePicker = () => {
   document.documentElement.style.setProperty("--colNum", Math.ceil(services.length ** (1 / 2)))
   console.log(services)
   return (
-    <div className='glass-container glass-container--grid-2'>
+    <div className='glass-container glass-container--grid-3'>
 
       <button 
         onClick={ () => navigate(-1) } 
