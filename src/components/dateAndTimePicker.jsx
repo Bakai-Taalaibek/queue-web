@@ -70,33 +70,7 @@ export const DateAndTimePicker = () => {
 
 
   const theme = createTheme({
-    // typography: {
-    //   fontSize: 12,
-    //   fontFamily: "Segoe UI, Helvetica, Arial, sans-serif",
-    // },
-    // palette: {
-    //   primary: {
-    //     main: 'rgb(66, 127, 232)',
-    //   },
-    //   secondary: {
-    //     main: '#f44336',
-    //   },
-    // },    
     components: {
-      // MuiInputBase: {
-      //   styleOverrides: {
-      //     root: {
-      //       backgroundColor: "white",
-      //       border: 'none',
-      //     },
-      //     input: {
-      //       display: 'flex',
-      //       justifyContent: 'center',
-      //       textAlign: 'center',
-      //       paddingTop: '0',
-      //     },
-      //   }
-      // },
       MuiOutlinedInput: {
         styleOverrides: {
           root: {
@@ -150,32 +124,6 @@ export const DateAndTimePicker = () => {
           }
         }
       }
-      // MuiPopper: {
-      //   styleOverrides: {
-      //     root: {
-      //       top: '-140px !important' ,
-      //       left: '318px !important',
-      //     },
-      //     select: {
-      //       inset: '10px auto auto 0px',
-      //       transform: 'translate3d(0,0,0)',
-      //       style: { transform: 'translate3d(0,0,0)' },
-      //     },
-      //   }
-      // },
-      // MuiPickersLayout: {
-      //   styleOverrides: {
-      //     root: {
-      //       top: '80px',
-      //       right: '10px',
-      //     },
-      //     select: {
-      //       inset: '10px auto auto 0px',
-      //       transform: 'translate3d(0,0,0)',
-      //       style: { transform: 'translate3d(0,0,0)' },
-      //     },
-      //   }
-      // },
     }
   });
 
@@ -239,7 +187,7 @@ export const DateAndTimePicker = () => {
       </div>
       
       
-      <div className="horisontal-group">
+      <div className="horisontal-group horisontal-group--center">
         <div 
           className="button"
           // style={{ display: parameters.is_appointment === false ? 'block' : 'none' }} 

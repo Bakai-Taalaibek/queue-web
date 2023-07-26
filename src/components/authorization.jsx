@@ -72,7 +72,7 @@ export const Authorization = () => {
             <p>Забыли пароль?</p>
           </div>
 
-          <div className='horisontal-group'>
+          <div className='horisontal-group horisontal-group--margin-top-1'>
             <div className='button button--50' onClick={ () => navigate('../registration')}>Создать аккаунт</div>
             <div className='button button--blue button--50' type='submit'>Войти</div>
           </div>

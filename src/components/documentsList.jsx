@@ -33,17 +33,11 @@ export const DocumentsList = () => {
     printDocuments()
   }
 
-  Font.register({ family: 'Roboto', fonts: [
-    { src: "src/assets/Roboto-Regular.ttf" }, // font-style: normal, font-weight: normal
-    { src: "src/assets/Roboto-Italic.ttf", fontStyle: 'italic' },
-    { src: "src/assets/Roboto-Bold.ttf", fontStyle: 'bold' },
-   ]});
   Font.register({ family: 'NotoSans', fonts: [
-     { src: "src/assets/NotoSans-Regular.ttf" }, // font-style: normal, font-weight: normal
+     { src: "src/assets/NotoSans-Regular.ttf" }, 
      { src: "src/assets/NotoSans-Italic.ttf", fontStyle: 'italic' },
      { src: "src/assets/NotoSans-Bold.ttf", fontStyle: 'bold' },
     ]});
-  Font.register({ family: 'Inter', src: "src/assets/Inter-Medium.ttf" })
 
   const styles = StyleSheet.create({
     page: {
@@ -55,7 +49,14 @@ export const DocumentsList = () => {
     },
     header: {
       textAlign: 'center',
-      marginBottom: '10px',
+      marginBottom: '5px',
+      fontStyle: 'bold',
+    },
+    medium: {
+      textAlign: 'center',
+      fontSize: '17px',
+      marginTop: '0',
+      marginBottom: '8px',
       fontStyle: 'bold',
     },
     section: {
@@ -78,6 +79,9 @@ export const DocumentsList = () => {
     
         <View style={ styles.header }>
           <Text>{ t('listOfDocuments') }</Text>
+        </View>
+        <View style={ styles.medium }>
+          <Text>"{ (parameters.serviceName.find(option => option.lang === i18n.language) || {}).text }"</Text>
         </View>
     
         { documents.map((document, index) => { 
@@ -133,9 +137,6 @@ export const DocumentsList = () => {
         </div>
 
         <PDFDownloadLink document={<DocumentsForSaving />} fileName="documents.pdf">
-          {/* {({ blob, url, loading, error }) =>
-            loading ? 'Минуточку...' : 'Сохранить'
-          } */}
           <img className='icon' src={ download } ></img>    
         </PDFDownloadLink>
 

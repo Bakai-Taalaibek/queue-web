@@ -49,7 +49,7 @@ export const TicketTypePicker = () => {
         </div>
       </div>
 
-      <div className="horisontal-group">
+      <div className="horisontal-group horisontal-group--center">
         <div 
           className="button"
           // style={{ display: parameters.is_appointment === false ? 'block' : 'none' }} 

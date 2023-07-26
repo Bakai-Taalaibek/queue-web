@@ -5,60 +5,78 @@ import '../styles/print.css'
 
 
 export const DocumentsForSaving = () => {
-  const { documents } = useServiceChooser()
+  const { documents, parameters } = useServiceChooser()
   const { t, i18n } = useTranslation()
   
+  Font.register({ family: 'NotoSans', fonts: [
+     { src: "src/assets/NotoSans-Regular.ttf" }, 
+     { src: "src/assets/NotoSans-Italic.ttf", fontStyle: 'italic' },
+     { src: "src/assets/NotoSans-Bold.ttf", fontStyle: 'bold' },
+    ]});
+
   const styles = StyleSheet.create({
     page: {
+      fontFamily: 'NotoSans',
       flexDirection: 'column',
       padding: '40px 40px 30px 30px',
       display: 'flex',
       fontSize: '20px'
     },
     header: {
-      textAlign: 'center'
+      textAlign: 'center',
+      marginBottom: '5px',
+      fontStyle: 'bold',
+    },
+    medium: {
+      textAlign: 'center',
+      fontSize: '17px',
+      marginTop: '0',
+      marginBottom: '8px',
+      fontStyle: 'bold',
     },
     section: {
-      margin: 10,
-      padding: 10,
-      flexGrow: 1
+      textAlign: 'left',
+      fontSize: '16px',
+      marginLeft: '45px',
+      marginBottom: '8px',
     },
     bottom: {
-      paddingLeft: '30mm'
+      paddingLeft: '30mm',
+      fontStyle: 'italic',
+      fontSize: '16px',
+      paddingTop: '10px',
     }
   })
-  
+
   return(
     <Document>
-      <Page size="A4" style={styles.page}>
-  
-        <View style={styles.header}>
+      <Page size="A4" style={ styles.page }>
+    
+        <View style={ styles.header }>
           <Text>{ t('listOfDocuments') }</Text>
         </View>
-  
-        <View style={styles.section}>
-          <Text>Section #1</Text>
+        <View style={ styles.medium }>
+          <Text>"{ (parameters.serviceName.find(option => option.lang === i18n.language) || {}).text }"</Text>
         </View>
-        <View style={styles.bottom}>
+    
+        { documents.map((document, index) => { 
+          return(
+            <View key={ index }>
+              <Text style={ styles.section }>
+                &#8226;
+                { (document.lang_name.find(option => option.lang === i18n.language) || {}).text || document.name }
+                { documents.length === index + 1 ? '' : ';' }
+                { document.required ? '*' : '' }
+              </Text>
+
+            </View>
+          )
+        }) }
+
+        <View style={ styles.bottom }>
           <Text>{ t('requiredDocuments') }</Text>
         </View>
       </Page>
     </Document>
-  )
-}
-
-
-
-
-
-      // <ul style={{ paddingLeft: '10rem', width: '40rem' }}>
-      //   { documents.map((document, index) => { 
-      //     return(
-      //       <li key={ index }  style={{ textAlign: 'left' }}>
-      //         <span>{ (document.lang_name.find(option => option.lang === i18n.language) || {}).text || document.name }</span> 
-      //         <span>{ documents.length === index + 1 ? '' : ';' }</span>
-      //         <span style={{ fontSize: '0.8rem' }}>{ document.required ? '*' : '' }</span>
-      //       </li>
-      //     )
-      //   }) }
-      // </ul>
+  ) 
+  }

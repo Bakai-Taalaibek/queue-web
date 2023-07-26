@@ -25,23 +25,30 @@ export const Activation = () => {
   }
 
   return(
-    <div>
-      <h2>Активация аккаунта</h2>
-      <p>На ваш номер направлен код активации. Введите его в поле.</p>
+    <div   className='glass-container'>
 
-      <form onSubmit={ handleActivation }>
-        <div>
-          Введите код активации &#9432;
-          <input  
-                  type='code'
-                  value={ code }
-                  name='code'
-                  onChange={({ target }) => setCode(target.value)}/>
-        </div>
-        
-        <button type='button'>Назад</button>
-        <button type='submit'>Создать аккаунт</button>
-      </form>
+      <div className='picker'>
+        <p className='text'>Активация аккаунта</p>
+        <p>На ваш номер направлен код активации. Введите его в поле.</p>
+
+        <form onSubmit={ handleActivation }>
+          <div>
+            <p className='text--small text--left '>Введите код активации &#9432;</p>
+            <input  
+                    className='input' 
+                    type='code'
+                    value={ code }
+                    name='code'
+                    onChange={({ target }) => setCode(target.value)}/>
+          </div>
+
+          <div className='horisontal-group horisontal-group--margin-top-2'>
+            <div className='button button--50' onClick={ () => navigate(-1)}>Назад</div>
+            <div className='button button--blue button--50' type='submit'>Создать аккаунт</div>
+          </div>
+          
+        </form>
+      </div>
 
     </div>
   )
