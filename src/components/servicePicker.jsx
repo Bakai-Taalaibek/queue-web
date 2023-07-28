@@ -216,7 +216,7 @@ export const ServicePicker = () => {
 
   document.documentElement.style.setProperty("--rowNum", Math.floor(services.length ** (1 / 2)))
   document.documentElement.style.setProperty("--colNum", Math.ceil(services.length ** (1 / 2)))
-  console.log(services)
+
   return (
     <div className='glass-container glass-container--grid-3'>
 

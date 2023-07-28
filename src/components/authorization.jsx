@@ -10,8 +10,8 @@ export const Authorization = () => {
   const { setUser } = useServiceChooser()
   const navigate = useNavigate()
 
-  const handleLogin = async (event) => {
-    event.preventDefault()
+  const handleLogin = async () => {
+    // event.preventDefault()
     try {
       const user = await mainService.login({
         phone, password,
@@ -20,7 +20,7 @@ export const Authorization = () => {
       setUser(user)
       setPhone('')
       setPassword('')
-      mainService.setToken(user.token)
+      mainService.setToken(user.refresh_token)
       window.localStorage.setItem(
         'loggedQueueWebUser', JSON.stringify(user)
       )
@@ -74,7 +74,7 @@ export const Authorization = () => {
 
           <div className='horisontal-group horisontal-group--margin-top-1'>
             <div className='button button--50' onClick={ () => navigate('../registration')}>Создать аккаунт</div>
-            <div className='button button--blue button--50' type='submit'>Войти</div>
+            <div className='button button--blue button--50' onClick={ handleLogin } type='submit'>Войти</div>
           </div>
           
         </form>

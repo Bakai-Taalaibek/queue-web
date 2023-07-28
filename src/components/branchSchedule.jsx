@@ -16,30 +16,33 @@ export const BranchSchedule = () => {
 
   return( 
     <div className='glass-container glass-container--grid-2'>    
-      <button 
+      <div className="picker">
+        <button 
           onClick={ () => navigate(-1) } 
           className="arrow arrow--left"
         >
-        <img src={ arrow } className="arrow__icon"></img>
-      </button> 
+          <img src={ arrow } className="arrow__icon"></img>
+        </button> 
 
-      <p className="text">Адрес: { parameters.branchAddress }</p>
-      <div className="schedule">
-        <div><span>Понедельник</span> <span>{ startTime } - { endTime }</span></div>
-        <div><span>Вторник</span> <span>{ startTime } - { endTime }</span></div>
-        <div><span>Среда</span> <span>{ startTime } - { endTime }</span></div>
-        <div><span>Четверг</span> <span>{ startTime } - { endTime }</span></div>
-        <div><span>Пятница</span> <span>{ startTime } - { endTime }</span></div>
-        <div><span>Суббота</span> <span>{ startTime } - { endTime }</span></div>
-        <div><span>Воскресенье</span> <span>{ startTime } - { endTime }</span></div>
-      </div>
- 
-      <button 
-        onClick={ () => navigate('../service') } 
-        className="arrow arrow--right"
-      >
-        <img src={ arrow } className="arrow__icon"></img>
-      </button>    
+        <p className="text">Адрес: { parameters.branchAddress }</p>
+        <div className="schedule">
+          <div><span>Понедельник</span> <span>{ startTime } - { endTime }</span></div>
+          <div><span>Вторник</span> <span>{ startTime } - { endTime }</span></div>
+          <div><span>Среда</span> <span>{ startTime } - { endTime }</span></div>
+          <div><span>Четверг</span> <span>{ startTime } - { endTime }</span></div>
+          <div><span>Пятница</span> <span>{ startTime } - { endTime }</span></div>
+          <div><span>Суббота</span> <span>{ startTime } - { endTime }</span></div>
+          <div><span>Воскресенье</span> <span>{ startTime } - { endTime }</span></div>
+        </div>
+  
+        <button 
+          onClick={ () => navigate('../service') } 
+          className="arrow arrow--right"
+        >
+          <img src={ arrow } className="arrow__icon"></img>
+        </button>  
+
+      </div>  
     </div>
   )
 }

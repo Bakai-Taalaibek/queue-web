@@ -21,7 +21,6 @@ export const CityPicker = () => {
     (async () => {
       const result = await mainService.getBranches()
       setAllBranches(result)
-      console.log(result)
       // Find all unique cities on branches object
       setCities([...new Set(result.map(item => item.city))])
     })()   

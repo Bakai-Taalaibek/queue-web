@@ -14,7 +14,7 @@ function App({ errorOutlet }) {
       const storedUser = JSON.parse(loggedUserJSON)      
 
       setUser(storedUser)    
-      mainService.setToken(storedUser.token)    
+      mainService.setToken(storedUser.access_token)    
     }  
   }, [])
 

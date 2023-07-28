@@ -1,37 +1,53 @@
 
 .button {
-    cursor: pointer;
-    background-color: white;
-    color: black;
-    border-radius: 15px;
-    border: 0;
-    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
-  
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 12rem;
-    height: 3rem;
-    // margin: 0.6rem;
-    justify-self: center;
-  }
-  .button--services {
-    min-width: 8rem;
-    min-height: 3rem;
-  }
-  .button--blue {
-    background-color:  #274eb9;
-    color: white;
-    font-weight: bold;
-  }
-  .button--disabled {
-    cursor: default;
-    background-color: #b1b1b1;
-  }
-  .button--long {
-    min-width: 23rem;
-    margin: 0.4rem 0;
-  }
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  border-radius: 15px;
+  border: 0;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 12rem;
+  height: 3rem;
+  // margin: 0.6rem;
+  justify-self: center;
+}
+.button--services {
+  min-width: 8rem;
+  min-height: 3rem;
+}
+.button--blue {
+  background-color:  #274eb9;
+  color: white;
+  font-weight: bold;
+}
+.button--disabled {
+  cursor: default;
+  background-color: #b1b1b1;
+}
+.button--long {
+  min-width: 23rem;
+  margin: 0.4rem 0;
+}
 .button--50 {
-    width: 50%;
-}  
+  width: 50%;                 
+}
+.button--text {
+  background-color: transparent;
+  border: 0;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: normal;
+  margin: auto 0.4rem;
+  cursor: pointer;
+  // text-shadow: 0px 0px 1px rgba(255, 255, 255, 1);
+
+  &:hover {
+    text-decoration: underline;
+    color: #b2ccff;
+    
+  }
+}

@@ -82,5 +82,6 @@ export const useServiceChooser = create((set, get) => ({
 		set({ documents: [{ name: 'паспорт', required: true, lang_name: [] }] })
 		set({ allBranches: [] })
 		set({ phoneForActivation: '' })
+		set({ user: null })
 	}
 }))
