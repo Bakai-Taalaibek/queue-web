@@ -20,7 +20,7 @@ export const Authorization = () => {
       setUser(user)
       setPhone('')
       setPassword('')
-      mainService.setToken(user.refresh_token)
+      mainService.setToken(user.access_token)
       window.localStorage.setItem(
         'loggedQueueWebUser', JSON.stringify(user)
       )

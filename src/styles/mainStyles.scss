@@ -166,6 +166,7 @@ html, body {
 .schedule {
   display: flex;
   flex-direction: column;
+  margin-top: 0.5rem;
 }
 .schedule > * {
   display: flex;
@@ -188,7 +189,8 @@ html, body {
   align-items: center;
 }
 .horisontal-group--90 {
-  width: 28rem;
+  width: 20rem;
+
 }
 .horisontal-group--center {
   justify-content: center;
@@ -257,12 +259,10 @@ html, body {
 }
 
 .lang__container {
-  width: 4.5rem;
-
+  width: 4.8rem;
   & p {
     margin: 0;
   }
-
 }
 .lang__icon {
   width: 25px;
@@ -271,7 +271,6 @@ html, body {
 }
 .lang__text {
   align-self: center;
-  border-bottom: 1.5px solid white;
   padding-bottom: 5px;
   display: flex;
   flex-direction: row;
@@ -282,6 +281,9 @@ html, body {
 }
 .lang__dropdownMenu {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.3rem;
 }
 
 
@@ -378,4 +380,26 @@ html, body {
   height: 2.5rem;
   border: 0;
   padding-left: 1rem;
+}
+
+.myTickets__container {
+  display: flex;
+  flex-direction: row;  
+  justify-content: center;
+}
+.myTickets__leftTextRow {
+  width: 100%;
+  text-align: left;
+}
+.myTickets__glass {
+  min-width: 20rem;
+}
+
+.remove__icon {
+  position: absolute;
+  bottom: 1rem;
+  right: 3rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }

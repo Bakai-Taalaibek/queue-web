@@ -27,11 +27,6 @@ const getServices = async (branchId) => {
   return response.data
 }
 
-// const getServices = async () => {
-//   const response = await axios.get(`${baseUrl}/base/services/`)
-//   return response.data
-// }
-
 const getBranches = async () => {
   const response = await axios.get(`${baseUrl}/branch/list/`)
   return response.data
@@ -43,6 +38,15 @@ const enqueue = async newObject => {
   }
 
   const response = await axios.post(`${baseUrl}/talon/`, newObject, config)
+  return response.data
+}
+
+const removeTicket = async ticketId => {
+  const config = {
+    headers: { Authorization: token },
+  }
+
+  const response = await axios.delete(`${baseUrl}/client/talon-delete/${ticketId}`, config)
   return response.data
 }
 
@@ -60,6 +64,17 @@ const printDocuments = async serviceName => {
   return response.data
 }
 
-const mainService = { setToken, login, getServices, getBranches, enqueue, printDocuments, register, activate, getMyTickets }
+const mainService = { 
+  removeTicket, 
+  setToken, 
+  login, 
+  getServices, 
+  getBranches, 
+  enqueue, 
+  printDocuments, 
+  register, 
+  activate, 
+  getMyTickets 
+}
 
 export default mainService

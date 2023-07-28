@@ -18,15 +18,12 @@ import mainService from '../utilities/services'
 
 export const Header = () => {
   const { i18n } = useTranslation()
-  const [ logoClicksCount, setLogoClicksCount ] = useState(1)
-  const [ pendingTimeout, setPendingTimeout ] = useState(null)
   const navigate = useNavigate()
-  const { resetServerResponse, user, resetSomeState } = useServiceChooser()
+  const { resetServerResponse, user, resetSomeState, setUser } = useServiceChooser()
   const [langMenu, setLangMenu] = useState(false)
   const floatingWindowRef = useRef()
 
 
-  // This function blocks the terminal if you press the logo 5 times in 5000 miliseconds. 
   const handleLogoClick = () => {
     resetServerResponse()
     navigate('')
@@ -34,6 +31,7 @@ export const Header = () => {
 
   const handleExit = () => {
     resetSomeState()
+    setUser(null)
     mainService.setToken(null)
     window.localStorage.removeItem(
       'loggedUser'
@@ -68,14 +66,15 @@ export const Header = () => {
 
         <div className='lang__container'>
           <div 
-            className='lang__text button--text' 
+            className='lang__text button--text'
+            style={{ borderBottom: langMenu ? '1.5px solid transparent' : '1.5px solid white' }} 
             onClick={ handleLangClick } 
             ref={ floatingWindowRef }
           >
             <p>{ i18n.language === 'ru' ? 'Рус' : i18n.language === 'en' ? 'Eng' : 'Кырг' }</p><p>&#x25BE;</p>
           </div>
 
-          <div className='lang__dropdownMenu' style={{ display: langMenu ? '' : 'none' }}>
+          <div className='lang__dropdownMenu' style={{ display: langMenu ? '' : 'none',  borderBottom: langMenu ? '1.5px solid white' : '1.5px solid transparent'}}>
 
             { languages.filter(lang => lang.code !== i18n.language ).map(lang => {
               return(
@@ -84,11 +83,10 @@ export const Header = () => {
                 </div>
               )
             })}
-
+            
           </div>
 
         </div>
-
 
         { user ? 
           <>
