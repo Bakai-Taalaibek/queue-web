@@ -57,7 +57,7 @@ export const BranchPicker = () => {
           type='button'
           onClick={ handleListVisibility }
         >
-          <span className="picker__inner-text">{ parameters.branchAddress || 'Выберите филиал' }</span>
+          <span className="picker__inner-text">{ parameters.branchAddress || t('selectABranch') }</span>
           <span className="picker__arrow-symbol">&#8964;</span>          
         
           <div className="picker__list-container" style={{ visibility: listVisibility ? "visible" : "hidden" }}>

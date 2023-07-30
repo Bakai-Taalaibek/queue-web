@@ -15,16 +15,34 @@ export const CityPicker = () => {
   const [listVisibility, setListVisibility] = useState(false)
   const [cities, setCities] = useState([])
 
-  // Making the first argument of useEffect hook an async function resulted in 'destroy is not a function' error.
+  // Making the first argument of useEffect hook an async function resulted in 
+  // 'destroy is not a function' error.
   // I used an immediately invoked function to circumvent this error. -Bakai
   useEffect(() => {
     (async () => {
-      const result = await mainService.getBranches()
-      setAllBranches(result)
-      // Find all unique cities on branches object
-      setCities([...new Set(result.map(item => item.lang_name === i18n.language ))])
+      const branches = await mainService.getBranches()
+      setAllBranches(branches)
     })()   
   }, [])
+
+  useEffect(() => {
+    // I want to create an array of all unique cities + their names in chosen language...
+    let cityNames = []
+    let uniqueCities = []
+    for (let i = 0; i < allBranches.length; i++) {
+      // While iterating over branches find its city's name in chosen language
+      const allLanguageObjects = allBranches[i].lang_name
+      const cityInChosenLang = allLanguageObjects.find(item => item.lang === i18n.language)
+      // I only add a city to my array if it doesn't exist there yet 
+      if (!uniqueCities.includes(allBranches[i].city)) {
+        uniqueCities.push(allBranches[i].city)
+        // And now I create an object with city name and translation which I push to an array
+        const obj = { name: allBranches[i].city, translation: cityInChosenLang.text }
+        cityNames.push(obj)
+      }
+    }
+    setCities(cityNames)
+  }, [i18n.language])
   
   const handleListVisibility = (event) => {
     setListVisibility(!listVisibility)
@@ -48,16 +66,6 @@ export const CityPicker = () => {
     event.preventDefault
     navigate('../branch')
   }
-  console.log(cities)
-  const findCityName = (branch) => {
-    if (!branch) {
-      return
-    }
-    console.log(branch)
-    const chosenLang = branch.lang_name?.find(name => name.lang === i18n.language)
-    console.log(chosenLang)
-    return chosenLang?.text
-  }
 
   return(
     <div className='glass-container glass-container--grid-3'>
@@ -72,6 +80,7 @@ export const CityPicker = () => {
           type='button'
           onClick={ handleListVisibility }
         >
+
           <span className="picker__inner-text">{ parameters.city || t('chooseCity') }</span>
           <span className="picker__arrow-symbol">&#8964;</span>          
         
@@ -79,18 +88,18 @@ export const CityPicker = () => {
             className="picker__list-container" 
             style={{ visibility: listVisibility ? "visible" : "hidden" }}
           >
-            { allBranches.map((branch, index) => {
+            { cities.map((city, index) => {
               return(
                 <button  
                   className="picker__button picker__button--secondary"
                   key={ index }
                   type='button' 
-                  // value={ branch }
+                  value={ city.name }
                   onClick={ handleCityChoice }
                 >
                   <span 
                     className="picker__inner-text picker__inner-text--secondary">
-                      { findCityName(branch) }
+                      { city.translation }
                   </span>               
                 </button>
               )

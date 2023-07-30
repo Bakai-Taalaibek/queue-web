@@ -57,6 +57,7 @@
   "chooseAService": "Выберите услугу",
   "chooseQueueType": "Выберите тип очереди",
   "SignUpForASpecificTime": "Записаться на определенное время",
-  "takeTheNearestPlaceInLine": "Занять ближайшее место в очереди"
+  "takeTheNearestPlaceInLine": "Занять ближайшее место в очереди",
+  "selectABranch": "Выберите филиал"
     
 }  
