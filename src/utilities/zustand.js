@@ -9,6 +9,7 @@ export const useServiceChooser = create((set, get) => ({
 		client_type: null,
 		is_pensioner: false,
 		is_appointment: null,
+		appointment_date: null,
 		comment: null,
 		branch: null,
 		branchAddress: ''
@@ -33,6 +34,9 @@ export const useServiceChooser = create((set, get) => ({
 	},
 	setBranch: (newBranch) => {
 		set({ parameters: {...get().parameters, branch: newBranch} })
+	},
+	setDateAndTime: (newDate) => {
+		set({ parameters: {...get().parameters, appointment_date: newDate} })
 	},
 
 	documents: [{ name: 'паспорт', required: true, lang_name: [] }],
@@ -75,6 +79,7 @@ export const useServiceChooser = create((set, get) => ({
 			client_type: null,
 			is_pensioner: false,
 			is_appointment: null,
+			appointment_date: null,
 			comment: null,
 			branch: null,
 			branchAddress: ''

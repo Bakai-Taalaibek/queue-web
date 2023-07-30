@@ -1,10 +1,19 @@
 import axios from 'axios'
 const baseUrl = `http://rskseo.pythonanywhere.com`
 
-let token = null
+let refresh_token = null
 
-const setToken = newToken => {
-  token = `Bearer ${newToken}`
+const setRefreshToken = newToken => {
+  refresh_token = `${newToken}`
+}
+
+const setAccessToken = async (token ) => {
+  const refreshToken = { refresh_token: token }
+
+  const response = await axios.post(`${baseUrl}/client/token/refresh/`, refreshToken)
+
+  const accessToken = `Bearer ${response.data.access_token}`
+  return accessToken
 }
 
 const register = async (credentials) => {
@@ -33,8 +42,9 @@ const getBranches = async () => {
 }
 
 const enqueue = async newObject => {
+  const accessToken = await setAccessToken(refresh_token)
   const config = {
-    headers: { Authorization: token },
+    headers: { Authorization: accessToken },
   }
 
   const response = await axios.post(`${baseUrl}/talon/`, newObject, config)
@@ -42,8 +52,9 @@ const enqueue = async newObject => {
 }
 
 const removeTicket = async ticketId => {
+  const accessToken = await setAccessToken(refresh_token)
   const config = {
-    headers: { Authorization: token },
+    headers: { Authorization: accessToken },
   }
 
   const response = await axios.delete(`${baseUrl}/client/talon-delete/${ticketId}`, config)
@@ -51,8 +62,9 @@ const removeTicket = async ticketId => {
 }
 
 const getMyTickets = async () => {
+  const accessToken = await setAccessToken(refresh_token)
   const config = {
-    headers: { Authorization: token },
+    headers: { Authorization: accessToken },
   }
 
   const response = await axios.get(`${baseUrl}/client/talons/`, config)
@@ -66,7 +78,7 @@ const printDocuments = async serviceName => {
 
 const mainService = { 
   removeTicket, 
-  setToken, 
+  setRefreshToken, 
   login, 
   getServices, 
   getBranches, 

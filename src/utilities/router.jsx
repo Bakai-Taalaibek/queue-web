@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import { PincodeEntryPage } from '../components/pincodeEntry'
 import { ServicePicker } from "../components/servicePicker";
 import { ClientInfo } from "../components/clientPicker";
 import { DocumentsList } from "../components/documentsList";
@@ -45,10 +44,6 @@ export const router = createBrowserRouter([
       {
         path: "schedule",
         element: <BranchSchedule />,
-      },
-      {
-        path: "entry",
-        element: <PincodeEntryPage />,
       },
       {
         path: 'service',

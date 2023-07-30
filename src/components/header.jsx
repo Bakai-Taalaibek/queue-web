@@ -1,13 +1,5 @@
 import '../styles/mainStyles.scss'
-import logo from '../assets/LOGO.png'
-import logo1 from '../assets/logo1.png'
 import logo2 from '../assets/logo2.svg'
-// import enIcon from '../assets/Frame 48.png'
-// import kyIcon from '../assets/Frame 49.png'
-// import ruIcon from '../assets/Frame 48-1.png'
-import enIcon from '../assets/us.svg'
-import kyIcon from '../assets/kg.svg'
-import ruIcon from '../assets/ru.svg'
 import lang from '../assets/lang.svg'
 import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -17,7 +9,7 @@ import mainService from '../utilities/services'
 
 
 export const Header = () => {
-  const { i18n } = useTranslation()
+  const { t, i18n } = useTranslation()
   const navigate = useNavigate()
   const { resetServerResponse, user, resetSomeState, setUser } = useServiceChooser()
   const [langMenu, setLangMenu] = useState(false)
@@ -32,9 +24,9 @@ export const Header = () => {
   const handleExit = () => {
     resetSomeState()
     setUser(null)
-    mainService.setToken(null)
+    mainService.setRefreshToken(null)
     window.localStorage.removeItem(
-      'loggedUser'
+      'loggedQueueWebUser'
     )
     navigate('')
   }
@@ -75,25 +67,22 @@ export const Header = () => {
           </div>
 
           <div className='lang__dropdownMenu' style={{ display: langMenu ? '' : 'none',  borderBottom: langMenu ? '1.5px solid white' : '1.5px solid transparent'}}>
-
-            { languages.filter(lang => lang.code !== i18n.language ).map(lang => {
+            { languages.filter(lang => lang.code !== i18n.language ).map((lang, index) => {
               return(
-                <div className=' button--text' onClick={ () => i18n.changeLanguage(lang.code) }>
+                <div key={ index } className='button--text' onClick={ () => i18n.changeLanguage(lang.code) }>
                   { lang.name }
                 </div>
               )
-            })}
-            
+            })}            
           </div>
-
         </div>
 
         { user ? 
           <>
-            <div className='button--text' onClick={ () => navigate('../mytickets') }>Мои талоны</div>
-            <div className='button--text' onClick={ handleExit }>Выйти</div>
+            <div className='button--text' onClick={ () => navigate('../mytickets') }>{ t('myTickets') }</div>
+            <div className='button--text' onClick={ handleExit }>{ t('exit') }</div>
           </> :
-          <button className='button--text' onClick={ () => navigate('../authorization') }>Войти</button>
+          <button className='button--text' onClick={ () => navigate('../authorization') }>{ t('enter') }</button>
         }
       </div>
     </div>

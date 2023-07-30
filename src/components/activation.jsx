@@ -2,11 +2,13 @@ import { useState } from 'react'
 import { useServiceChooser } from "../utilities/zustand"
 import mainService from '../utilities/services'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export const Activation = () => {
   const [code, setCode] = useState('')
   const { phoneForActivation, resetPhoneForActivation } = useServiceChooser()
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const handleActivation = async (event) => {
     event.preventDefault()
@@ -28,12 +30,12 @@ export const Activation = () => {
     <div   className='glass-container'>
 
       <div className='picker'>
-        <p className='text'>Активация аккаунта</p>
-        <p>На ваш номер направлен код активации. Введите его в поле.</p>
+        <p className='text'>{ t('accountActivation') }</p>
+        <p>{ t('activationCodeHasBeenSent') }</p>
 
         <form onSubmit={ handleActivation }>
           <div>
-            <p className='text--small text--left '>Введите код активации &#9432;</p>
+            <p className='text--small text--left '>{ t('enterActivationCode') } &#9432;</p>
             <input  
                     className='input' 
                     type='code'
@@ -43,11 +45,11 @@ export const Activation = () => {
           </div>
 
           <div className='horisontal-group horisontal-group--margin-top-2'>
-            <div className='button button--50' onClick={ () => navigate(-1)}>Назад</div>
-            <div className='button button--blue button--50' type='submit'>Создать аккаунт</div>
-          </div>
-          
+            <div className='button button--50' onClick={ () => navigate(-1)}>{ t('back') }</div>
+            <div className='button button--blue button--50' type='submit'>{ t('createAnAccount') }</div>
+          </div>          
         </form>
+
       </div>
 
     </div>

@@ -1,7 +1,7 @@
 import { useServiceChooser } from "../utilities/zustand"
 import { useNavigate } from 'react-router-dom'
 import '../styles/mainStyles.scss'
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 import arrow from '../assets/arrow.svg'
  
 export const ClientInfo = () => {
@@ -11,7 +11,6 @@ export const ClientInfo = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault
-    // setPensionerState(pensioner)
     navigate('../documents')
   }
 
@@ -30,7 +29,7 @@ export const ClientInfo = () => {
       <p className="text">{ t('chooseClientType') }</p>
 
       <div className="picker">
-        <p className="picker__label">Шаг 4/5</p>
+        <p className="picker__label">{ t('step') } 4/5</p>
         <div className="horisontal-group">
           <div
             className='button' style={ { backgroundColor: parameters.client_type === 'physical' ? '#70b7fa' : '' } } 
@@ -48,9 +47,7 @@ export const ClientInfo = () => {
           <label className="text text--smaller" htmlFor="pensioner">{ t('iAmApensioner') }</label>
           <div style={{ visibility: parameters.is_pensioner ? '' : 'hidden' }} className="checkmark"></div>
         </div>
-
       </div>
-
 
       <button 
         style={{ display: parameters.client_type ? '' : 'none' }} 

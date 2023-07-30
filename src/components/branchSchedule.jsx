@@ -1,11 +1,12 @@
 import { useServiceChooser } from "../utilities/zustand"
 import { useNavigate } from 'react-router-dom'
 import arrow from '../assets/arrow.svg'
-
+import { useTranslation } from 'react-i18next'
 
 export const BranchSchedule = () => {
   const { parameters, allBranches } = useServiceChooser()
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const currentBranch = allBranches.find(branch => branch.id === parameters.branch)
   // const startTime = new Date(currentBranch.work_time_start).toLocaleTimeString('ru', { hour: '2-digit', minute:'2-digit' })
@@ -24,15 +25,15 @@ export const BranchSchedule = () => {
           <img src={ arrow } className="arrow__icon"></img>
         </button> 
 
-        <p className="text">Адрес: { parameters.branchAddress }</p>
+        <p className="text">{ t('address') }: { parameters.branchAddress }</p>
         <div className="schedule">
-          <div><span>Понедельник</span> <span>{ startTime } - { endTime }</span></div>
-          <div><span>Вторник</span> <span>{ startTime } - { endTime }</span></div>
-          <div><span>Среда</span> <span>{ startTime } - { endTime }</span></div>
-          <div><span>Четверг</span> <span>{ startTime } - { endTime }</span></div>
-          <div><span>Пятница</span> <span>{ startTime } - { endTime }</span></div>
-          <div><span>Суббота</span> <span>{ startTime } - { endTime }</span></div>
-          <div><span>Воскресенье</span> <span>{ startTime } - { endTime }</span></div>
+          <div><span>{ t('monday') }</span> <span>{ startTime } - { endTime }</span></div>
+          <div><span>{ t('tuesday') }</span> <span>{ startTime } - { endTime }</span></div>
+          <div><span>{ t('wednesday') }</span> <span>{ startTime } - { endTime }</span></div>
+          <div><span>{ t('thursday') }</span> <span>{ startTime } - { endTime }</span></div>
+          <div><span>{ t('friday') }</span> <span>{ startTime } - { endTime }</span></div>
+          <div><span>{ t('saturday') }</span> <span>{ startTime } - { endTime }</span></div>
+          <div><span>{ t('sunday') }</span> <span>{ startTime } - { endTime }</span></div>
         </div>
   
         <button 

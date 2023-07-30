@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import mainService from '../utilities/services'
 import { useServiceChooser } from "../utilities/zustand"
+import { useTranslation } from 'react-i18next'
 
 export const Registration = () => {
   const [phone, setPhone] = useState('')
@@ -9,6 +10,7 @@ export const Registration = () => {
   const [password_confirm, setPassword_confirm] = useState('')
   const navigate = useNavigate()
   const { setPhoneForActivation } = useServiceChooser()
+  const { t } = useTranslation()
  
   const handleRegistration = async (event) => {
     event.preventDefault()
@@ -34,11 +36,11 @@ export const Registration = () => {
   return (
     <div className='glass-container'>
       <div>
-        <p className='text'>Создание нового аккаунта</p>
+        <p className='text'>{ t('creatingANewAccount') }</p>
 
         <form onSubmit={ handleRegistration }>
           <div>
-            <p className='text--small text--left '>Введите номер телефона &#9432;</p>
+            <p className='text--small text--left '>{ t('enterTelephoneNumber') } &#9432;</p>
             <input  
                     className='input' 
                     type='text'
@@ -49,7 +51,7 @@ export const Registration = () => {
           </div>
 
           <div>
-            <p className='text--small text--left '>Введите пароль &#9432;</p>   
+            <p className='text--small text--left '>{ t('enterPassword') } &#9432;</p>   
             <input  
                     className='input' 
                     type='password'
@@ -60,7 +62,7 @@ export const Registration = () => {
           </div>
 
           <div>
-            <p className='text--small text--left '>Введите тот же пароль снова &#9432;</p>   
+            <p className='text--small text--left'>{ t('enterTheSamePasswordAgaint') } &#9432;</p>   
             <input  
                     className='input' 
                     type='password'
@@ -71,8 +73,8 @@ export const Registration = () => {
           </div>
 
           <div className='horisontal-group horisontal-group--margin-top-2'>
-            <div className='button button--50' onClick={ () => navigate('../authorization')}>Уже есть акаунт</div>
-            <div className='button button--blue button--50' type='submit'>Создать аккаунт</div>
+            <div className='button button--50' onClick={ () => navigate('../authorization')}>{ t('alreadyHaveAnAccount') }</div>
+            <div className='button button--blue button--50' type='submit'>{ t('createAnAccount') }</div>
           </div>
         </form>
 

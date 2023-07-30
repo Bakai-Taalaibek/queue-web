@@ -8,9 +8,9 @@ import arrow from '../assets/arrow.svg'
  
 
 export const CityPicker = () => {
-  const { parameters, setCity, setAllBranches } = useServiceChooser()
+  const { parameters, setCity, setAllBranches, allBranches } = useServiceChooser()
   const navigate = useNavigate()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const floatingWindowRef = useRef()
   const [listVisibility, setListVisibility] = useState(false)
   const [cities, setCities] = useState([])
@@ -22,7 +22,7 @@ export const CityPicker = () => {
       const result = await mainService.getBranches()
       setAllBranches(result)
       // Find all unique cities on branches object
-      setCities([...new Set(result.map(item => item.city))])
+      setCities([...new Set(result.map(item => item.lang_name === i18n.language ))])
     })()   
   }, [])
   
@@ -48,14 +48,23 @@ export const CityPicker = () => {
     event.preventDefault
     navigate('../branch')
   }
-  console.log()
+  console.log(cities)
+  const findCityName = (branch) => {
+    if (!branch) {
+      return
+    }
+    console.log(branch)
+    const chosenLang = branch.lang_name?.find(name => name.lang === i18n.language)
+    console.log(chosenLang)
+    return chosenLang?.text
+  }
 
   return(
     <div className='glass-container glass-container--grid-3'>
-      <p className="text">Получение электронной очереди</p>
+      <p className="text">{ t('receiveingAnElectronicQueue') }</p>
 
       <div className='picker'>
-        <p className="picker__label">Шаг 1/5</p>
+        <p className="picker__label">{ t('step') } 1/5</p>
 
         <div 
           ref={ floatingWindowRef }
@@ -63,20 +72,26 @@ export const CityPicker = () => {
           type='button'
           onClick={ handleListVisibility }
         >
-          <span className="picker__inner-text">{ parameters.city || 'Выберите город' }</span>
+          <span className="picker__inner-text">{ parameters.city || t('chooseCity') }</span>
           <span className="picker__arrow-symbol">&#8964;</span>          
         
-          <div className="picker__list-container" style={{ visibility: listVisibility ? "visible" : "hidden" }}>
-            { cities.map((city, index) => {
+          <div 
+            className="picker__list-container" 
+            style={{ visibility: listVisibility ? "visible" : "hidden" }}
+          >
+            { allBranches.map((branch, index) => {
               return(
                 <button  
                   className="picker__button picker__button--secondary"
                   key={ index }
                   type='button' 
-                  value={ city }
+                  // value={ branch }
                   onClick={ handleCityChoice }
                 >
-                  <span className="picker__inner-text picker__inner-text--secondary">{ city }</span>               
+                  <span 
+                    className="picker__inner-text picker__inner-text--secondary">
+                      { findCityName(branch) }
+                  </span>               
                 </button>
               )
             })}

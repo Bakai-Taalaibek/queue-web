@@ -2,10 +2,12 @@ import { useServiceChooser } from "../utilities/zustand"
 import { useNavigate } from 'react-router-dom'
 import mainService from '../utilities/services'
 import arrow from '../assets/arrow.svg'
+import { useTranslation } from 'react-i18next'
 
 export const TicketTypePicker = () => {
   const { parameters, setServerResponse, resetSomeState, setIsAppointment } = useServiceChooser()
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const handleEnqueue = async () => {
     const result = await mainService.enqueue(parameters)
@@ -30,7 +32,7 @@ export const TicketTypePicker = () => {
         <img src={ arrow } className="arrow__icon"></img>
       </button> 
       
-      <p className="text">Выберите тип очереди</p>
+      <p className="text">{ t('chooseQueueType') }</p>
 
       <div className="picker" style={{ marginBottom: '2rem' }}>
         <div 
@@ -38,14 +40,14 @@ export const TicketTypePicker = () => {
           className="button button--long" 
           onClick={ () => setIsAppointment(true) }
         >
-          Записаться на определенное время
+          { t('SignUpForASpecificTime') }
         </div>
 
         <div 
           style={ { backgroundColor: parameters.is_appointment === false ? '#70b7fa' : '' }}
           className="button button--long" onClick={ () => setIsAppointment(false) }
         >
-          Занять ближайшее место в очереди
+          { t('takeTheNearestPlaceInLine') }
         </div>
       </div>
 
@@ -55,13 +57,13 @@ export const TicketTypePicker = () => {
           // style={{ display: parameters.is_appointment === false ? 'block' : 'none' }} 
           onClick={ handleCancel }
         >
-          Отменить
+          { t('cancel') }
         </div>
         <div 
           className={`button button--blue ${ parameters.is_appointment === false ? '' : 'button--disabled' }`}
           onClick={ handleEnqueue }
         >
-          Получить талон
+          { t('getATicket') }
         </div>
       </div>
 

@@ -11,28 +11,21 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import dayjs from 'dayjs';
 import arrow from '../assets/arrow.svg'
 import { useNavigate } from 'react-router-dom'
+import mainService from '../utilities/services'
+import { useTranslation } from 'react-i18next'
 
 
 export const DateAndTimePicker = () => {
   const [appointmentDate, setAppointmentDate] = useState(null)
   const [appointmentTime, setAppointmentTime] = useState(dayjs().set('hour', 9).startOf('hour'))
-  const { parameters, setServerResponse, resetSomeState, setIsAppointment, allBranches } = useServiceChooser()
+  const { parameters, setServerResponse, resetSomeState, setDateAndTime, allBranches } = useServiceChooser()
   const navigate = useNavigate()
+  const { t, i18n } = useTranslation()
 
   const addDays = (date, days) => {
     const initialDate = new Date(date)
     const finalDate = initialDate.setDate(initialDate.getDate() + days)
     return finalDate
-  }
-
-  const handleSubmit = () => {
-    const year = appointmentDate.getFullYear()
-    const month = appointmentDate.getMonth()
-    const day = appointmentDate.getDate()
-    const hour = appointmentTime.$d.getHours()
-    const minute = appointmentTime.$d.getMinutes()
-    const chosenTime = new Date(year, month, day, hour, minute)
-    const chosenTimeISO = chosenTime.toISOString()
   }
 
   // To check if today the bank branch is still available for appointment, 
@@ -45,10 +38,32 @@ export const DateAndTimePicker = () => {
   const scheduleHour = +scheduleDayEndTime.slice(0, 2)
   const scheduleMinute = +scheduleDayEndTime.slice(3, 5)
   
+  let firstDay = new Date() 
+  // If current time is ahead of branch's work end time, 
+  // then the first available day for appointment should be tommorow 
+  if (currentHour > scheduleHour) {
+    firstDay = addDays(firstDay, 1)
+  } else if (currentHour === scheduleHour && currentMinute > scheduleMinute) {
+    firstDay = addDays(firstDay, 1)
+  }
+  // And the last available day for appointment is the first day + 6 days
+  const lastDay = addDays(firstDay, 6)
+  // If the last day falls to the next month, then two months should be shown
+  const monthsToShow = new Date(lastDay).getMonth() - new Date(firstDay).getMonth() + 1
+  
+
   const handleEnqueue = async () => {
-    const result = await mainService.enqueue(parameters)
+    const year = appointmentDate.getFullYear()
+    const month = appointmentDate.getMonth()
+    const day = appointmentDate.getDate()
+    const hour = appointmentTime.$d.getHours()
+    const minute = appointmentTime.$d.getMinutes()
+    const chosenTime = new Date(year, month, day, hour, minute)
+    const chosenTimeISO = chosenTime.toISOString()
+    setDateAndTime(chosenTimeISO)
+
+    const result = await mainService.enqueue({...parameters,  appointment_date: chosenTimeISO })
     await setServerResponse(result)
-    console.log(result)
     resetSomeState()
     navigate('../view')
   }
@@ -57,17 +72,6 @@ export const DateAndTimePicker = () => {
     resetSomeState()
     navigate('/')
   }
-  
-  let firstDay = new Date() 
-  if (currentHour > scheduleHour) {
-    firstDay = addDays(firstDay, 1)
-  } else if (currentHour === scheduleHour && currentMinute > scheduleMinute) {
-    firstDay = addDays(firstDay, 1)
-  }
-
-  const lastDay = addDays(firstDay, 6)
-  const monthsToShow = new Date(lastDay).getMonth() - new Date(firstDay).getMonth() + 1
-
 
   const theme = createTheme({
     components: {
@@ -110,18 +114,14 @@ export const DateAndTimePicker = () => {
         styleOverrides: {
           root: {
             width: '6rem',
-          },
-          active: {
-            border: 'none',
-            outline: 'none',
+            '&.Mui-active': {
+              border: 'none',
+              outline: 'none',
+            }
           },
           item: {
             marginLeft: '1.5rem'
           },
-          active: {
-            border: 'none',
-            outline: 'none',
-          }
         }
       }
     }
@@ -141,7 +141,7 @@ export const DateAndTimePicker = () => {
         <img src={ arrow } className="arrow__icon"></img>
       </button> 
 
-      <p className='text'>Выберите дату и время</p>
+      <p className='text'>{ t('chooseDateAndTime') }</p>
 
       <div className='picker' style={{ marginBottom: '1.3rem' }}>
         <DatePicker 
@@ -153,7 +153,7 @@ export const DateAndTimePicker = () => {
           monthsShown={ monthsToShow }
           dateFormat="dd.MM.yyyy"
           calendarStartDay={ 1 }
-          locale={ ru }
+          locale={ i18n.language === 'en' ? 'en' : ru }
           popperModifiers={[
             {
               name: "offset",
@@ -193,13 +193,14 @@ export const DateAndTimePicker = () => {
           // style={{ display: parameters.is_appointment === false ? 'block' : 'none' }} 
           onClick={ handleCancel }
         >
-          Отменить
+          { t('cancel') }
         </div>
+
         <div 
           className={`button button--blue ${ appointmentDate ? '' : 'button--disabled' }`}
           onClick={ handleEnqueue }
         >
-          Получить талон
+          { t('getATicket') }
         </div>
       </div>
 

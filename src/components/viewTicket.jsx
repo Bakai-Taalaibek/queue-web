@@ -13,40 +13,39 @@ export const ViewTicket = () => {
     <div className="glass-container" style={{ textAlign: 'left' }}>
 
       <div className="picker">
-        <p className="horisontal-group horisontal-group--center"><span className="text-bold">Ваш номер: </span><span className="text text--big">{ serverResponse.token }</span></p>
-        
+        <p className="horisontal-group horisontal-group--center"><span className="text-bold">{ t('yourTicket') }: </span><span className="text text--big">{ serverResponse.token }</span></p>
         <div className="horisontal-group horisontal-group--90">
           <div>
-            <p className="text-bold">Услуга: </p>
+            <p className="text-bold">{ t('service') }: </p>
             <p>{ serverResponse.service_name }</p>
           </div>
 
           <div>
-            <p className="text-bold">Дата: </p>
+            <p className="text-bold">{ t('date') }: </p>
             <p>{ date }</p>
           </div>
 
           <div>
-            <p className="text-bold">Время: </p>
+            <p className="text-bold">{ t('time') }: </p>
             <p>{ time }</p>
           </div>
 
         </div>
 
         <div style={{ margin: 'auto auto 1rem auto' }}>
-          <p className="text-bold">Адрес: </p>
+          <p className="text-bold">{ t('address') }: </p>
           <p><span>{ serverResponse.branch.city }, </span><span>{ serverResponse.branch.address }</span></p>
           
         </div>
 
         <p className="text-margin-5">
-          <span>Позиция в очереди: </span>
-          <span className="text-bold">{ serverResponse.talons_in_queue + 1 }</span>
+          <span>{ t('positionInQueue') }: </span>
+          <span className="text-bold">{ serverResponse.position_in_queue }</span>
         </p>
-        <p className="text-margin-5">
+        {/* <p className="text-margin-5">
           <span>Осталось: </span>
           <span className="text-bold">{ serverResponse.estimated_time_in_min } минут</span>
-        </p>
+        </p> */}
 
       </div>
 

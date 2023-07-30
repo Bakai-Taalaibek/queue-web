@@ -195,7 +195,7 @@ export const ServicePicker = () => {
   const [services, setServices] = useState([])
   // const [currentImage, setCurrentImage] = useState([])
   const navigate = useNavigate()
-  const { i18n } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   // Making the first argument of useEffect hook an async function resulted in 'destroy is not a function' error.
   // I used an immediately invoked function to circumvent this error. -Bakai
@@ -219,7 +219,6 @@ export const ServicePicker = () => {
 
   return (
     <div className='glass-container glass-container--grid-3'>
-
       <button 
         onClick={ () => navigate(-1) } 
         className="arrow arrow--left"
@@ -227,27 +226,25 @@ export const ServicePicker = () => {
         <img src={ arrow } className="arrow__icon"></img>
       </button> 
 
-      <p className="text">Выберите услугу</p>
+      <p className="text">{ t('chooseAService') }</p>
       <div className="picker">        
+        <p className="picker__label">{ t('step') } 3/5</p>
+        <div className="services">
+          { services.map((object, index) => { 
 
-          <p className="picker__label">Шаг 3/5</p>
-          <div className="services">
-            { services.map((object, index) => { 
-              let currentImage = `/src/assets/image${index}.png`
-
-              return (
-                <div 
-                  style={{ backgroundColor: parameters.service === object.id ? '#70b7fa' : '' }} 
-                  key={ index } 
-                  className="button button--service" 
-                  onClick={ () => handleServiceClick(object) }
-                >
-                  <p  className="text text--button" >{ (object.lang_name.find(option => option.lang === i18n.language) || {}).text || object.name } </p> 
-                  {/* <img className="image-in-box" src={ currentImage } alt='illustration'/> */}
-                </div >
-              )
-            })}
-          </div>        
+            return (
+              <div 
+                style={{ backgroundColor: parameters.service === object.id ? '#70b7fa' : '' }} 
+                key={ index } 
+                className="button button--service" 
+                onClick={ () => handleServiceClick(object) }
+              >
+                <p  className="text text--button" >{ (object.lang_name.find(option => option.lang === i18n.language) || {}).text || object.name } </p> 
+                {/* <img className="image-in-box" src={ currentImage } alt='illustration'/> */}
+              </div >
+            )
+          })}
+        </div>        
       </div>
        
       <button 

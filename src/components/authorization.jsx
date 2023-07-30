@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useServiceChooser } from "../utilities/zustand"
 import mainService from '../utilities/services'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export const Authorization = () => {
   const [phone, setPhone] = useState('')
@@ -9,6 +10,7 @@ export const Authorization = () => {
   const [remember, setRemember] = useState(false)
   const { setUser } = useServiceChooser()
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const handleLogin = async () => {
     // event.preventDefault()
@@ -16,11 +18,10 @@ export const Authorization = () => {
       const user = await mainService.login({
         phone, password,
       })
-      console.log(user)
       setUser(user)
       setPhone('')
       setPassword('')
-      mainService.setToken(user.access_token)
+      mainService.setRefreshToken(user.refresh_token)
       window.localStorage.setItem(
         'loggedQueueWebUser', JSON.stringify(user)
       )
@@ -35,12 +36,12 @@ export const Authorization = () => {
     <div  className='glass-container'>
 
       <div className='picker'>
-        <p className='text'>Добро пожаловать!</p>
-        <p>Введите информацию, которую вы добавили при регистрации</p>
+        <p className='text'>{ t('welcome') }</p>
+        <p>{ t('enterInformationYouAdded') }</p>
 
         <form onSubmit={ handleLogin }>
           <div>
-            <p className='text--small text--left '>Введите номер телефона &#9432;</p>
+            <p className='text--small text--left '>{ t('enterTelephoneNumber') } &#9432;</p>
             <input  
                     className='input' 
                     placeholder='Номер телефона'
@@ -51,7 +52,7 @@ export const Authorization = () => {
           </div>
 
           <div>
-            <p className='text--small text--left '>Введите пароль &#9432;</p>          
+            <p className='text--small text--left '>{ t('enterPassword') } &#9432;</p>          
             <input 
                     className='input' 
                     placeholder='Пароль'
@@ -65,23 +66,21 @@ export const Authorization = () => {
 
             <div className="checkbox-container checkbox--left"  >
               <input onClick={ () => setRemember(!remember) } type="checkbox" id="remember" name="remember" />
-              <label className="text text--smaller" htmlFor="remember">Запомнить меня</label>
+              <label className="text text--smaller" htmlFor="remember">{ t('rememberMe') }</label>
               <div  style={{ visibility: remember ? '' : 'hidden' }} className="checkmark checkmark--auth"></div>
             </div>
 
-            <p>Забыли пароль?</p>
+            <p>{ t('forgotYourPassword') }</p>
           </div>
 
           <div className='horisontal-group horisontal-group--margin-top-1'>
-            <div className='button button--50' onClick={ () => navigate('../registration')}>Создать аккаунт</div>
-            <div className='button button--blue button--50' onClick={ handleLogin } type='submit'>Войти</div>
+            <div className='button button--50' onClick={ () => navigate('../registration')}>{ t('createAnAccount') }</div>
+            <div className='button button--blue button--50' onClick={ handleLogin } type='submit'>{ t('enter') }</div>
           </div>
           
         </form>
 
-
       </div>
-
 
     </div>
   )

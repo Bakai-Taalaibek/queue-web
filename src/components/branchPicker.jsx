@@ -39,7 +39,7 @@ export const BranchPicker = () => {
 
   return(
     <div className='glass-container glass-container--grid-3'>
-      <p className="text">Получение электронной очереди</p>
+      <p className="text">{ t('receiveingAnElectronicQueue') }</p>
       
       <button 
         onClick={ () => navigate(-1) } 
@@ -49,7 +49,7 @@ export const BranchPicker = () => {
       </button>  
 
       <div className='picker' >
-        <p className="picker__label">Шаг 2/5</p>
+        <p className="picker__label">{ t('step') } 2/5</p>
 
         <div 
           ref={ floatingWindowRef }
