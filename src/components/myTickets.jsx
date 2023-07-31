@@ -27,55 +27,58 @@ export const MyTickets = () => {
 
   return (
     <div ref={ containerRef } className='myTickets__container'>
-      { myTickets.map((ticket, index) => {
-        return(                     
-          <div 
-            className='myTickets__glass glass-container' 
-            key={ index }
-          >
-            <p className="horisontal-group horisontal-group--center"><span className="text-bold">{ t('yourTicket') }: </span><span className="text text--big">{ ticket.token }</span></p>
-            
-            <div className="horisontal-group horisontal-group--90">
-              <div>
-                <p className="text-bold">{ t('service') }: </p>
-                <p>{ ticket.service }</p>
-              </div>
+      <div className='myTickets__container--another'>
 
-              <div>
-                <p className="text-bold">{ t('date') }: </p>
-                <p>{ new Date(ticket.registered_at).toLocaleDateString('ru') }</p>
-              </div>
-
-              <div>
-                <p className="text-bold">{ t('time') }: </p>
-                <p>{ new Date(ticket.registered_at).toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' }) }</p>
-              </div>
-            </div>
-
-            <div style={{ margin: 'auto auto 1rem auto' }}>
-              <p className="text-bold">{ t('address') }: </p>
-              <p><span>{ ticket.branch.city }, </span><span>{ ticket.branch.address }</span></p>
-              
-            </div>
-
-            <p className=" myTickets__leftTextRow  text-margin-5">
-              <span>{ t('positionInQueue') }: </span>
-              <span className="text-bold">{ ticket.position_in_queue }</span>
-            </p>
-            {/* <p className=" myTickets__leftTextRow  text-margin-5">
-              <span>Осталось: </span>
-              <span className="text-bold">{ ticket.estimated_time_in_min } минут</span>
-            </p> */}
-
-            <button 
-              onClick={ () => handleRemove(ticket.id) } 
-              className="remove__icon"
+        { myTickets.map((ticket, index) => {
+          return(                     
+            <div 
+              className='myTickets__glass glass-container' 
+              key={ index }
             >
-              <img src={ remove } ></img>
-            </button> 
-          </div>   
-        )
-      })}
+              <p className="horisontal-group horisontal-group--center"><span className="text-bold">{ t('yourTicket') }: </span><span className="text text--big">{ ticket.token }</span></p>
+              
+              <div className="horisontal-group horisontal-group--90">
+                <div>
+                  <p className="text-bold">{ t('service') }: </p>
+                  <p>{ ticket.service }</p>
+                </div>
+
+                <div>
+                  <p className="text-bold">{ t('date') }: </p>
+                  <p>{ new Date(ticket.registered_at).toLocaleDateString('ru') }</p>
+                </div>
+
+                <div>
+                  <p className="text-bold">{ t('time') }: </p>
+                  <p>{ new Date(ticket.registered_at).toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' }) }</p>
+                </div>
+              </div>
+
+              <div style={{ margin: 'auto auto 1rem auto' }}>
+                <p className="text-bold">{ t('address') }: </p>
+                <p><span>{ ticket.branch.city }, </span><span>{ ticket.branch.address }</span></p>
+                
+              </div>
+
+              <p className=" myTickets__leftTextRow  text-margin-5">
+                <span>{ t('positionInQueue') }: </span>
+                <span className="text-bold">{ ticket.position_in_queue }</span>
+              </p>
+              {/* <p className=" myTickets__leftTextRow  text-margin-5">
+                <span>Осталось: </span>
+                <span className="text-bold">{ ticket.estimated_time_in_min } минут</span>
+              </p> */}
+
+              <button 
+                onClick={ () => handleRemove(ticket.id) } 
+                className="remove__icon"
+              >
+                <img src={ remove } ></img>
+              </button> 
+            </div>   
+          )
+        })}
+      </div>
     </div> 
   )
 }

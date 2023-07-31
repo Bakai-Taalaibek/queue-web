@@ -22,28 +22,27 @@ export const CityPicker = () => {
     (async () => {
       const branches = await mainService.getBranches()
       setAllBranches(branches)
-    })()   
-  }, [])
 
-  useEffect(() => {
-    // I want to create an array of all unique cities + their names in chosen language...
-    let cityNames = []
-    let uniqueCities = []
-    for (let i = 0; i < allBranches.length; i++) {
-      // While iterating over branches find its city's name in chosen language
-      const allLanguageObjects = allBranches[i].lang_name
-      const cityInChosenLang = allLanguageObjects.find(item => item.lang === i18n.language)
-      // I only add a city to my array if it doesn't exist there yet 
-      if (!uniqueCities.includes(allBranches[i].city)) {
-        uniqueCities.push(allBranches[i].city)
-        // And now I create an object with city name and translation which I push to an array
-        const obj = { name: allBranches[i].city, translation: cityInChosenLang.text }
-        cityNames.push(obj)
+      // I want to create an array of all unique cities + their names in chosen language...
+      let cityNames = []
+      let uniqueCities = []
+      for (let i = 0; i < branches.length; i++) {
+        // While iterating over branches find its city's name in chosen language
+        const allLanguageObjects = branches[i].lang_name
+        const cityInChosenLang = allLanguageObjects.find(item => item.lang === i18n.language)
+        // I only add a city to my array if it doesn't exist there yet 
+        if (!uniqueCities.includes(branches[i].city)) {
+          uniqueCities.push(branches[i].city)
+          // And now I create an object with city name and translation which I push to an array
+          const obj = { name: branches[i].city, translation: cityInChosenLang.text }
+          cityNames.push(obj)
+        }
       }
-    }
-    setCities(cityNames)
+      setCities(cityNames)
+    })()   
   }, [i18n.language])
-  
+
+
   const handleListVisibility = (event) => {
     setListVisibility(!listVisibility)
     

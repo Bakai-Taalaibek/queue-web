@@ -383,10 +383,24 @@ html, body {
 }
 
 .myTickets__container {
+  // align-self: center;
   display: flex;
+  justify-items: center;
+  // box-sizing: border-box;
+  // width: 100%;
+  // margin: 0 auto;
   flex-direction: row;  
   overflow-x: hidden;
-  padding: 0 2rem;
+  // padding: 0 10rem;  
+}
+.myTickets__container--another {
+  display: flex;
+  // flex-direction: row;  
+  margin: 0 auto;
+  // box-sizing: border-box;
+  // width: 100%;
+  // margin: 0 2rem;  
+
 }
 .myTickets__leftTextRow {
   width: 100%;
