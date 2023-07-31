@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = `http://rskseo.pythonanywhere.com`
+const baseUrl = `https://rskseo.pythonanywhere.com`
 
 let refresh_token = null
 
