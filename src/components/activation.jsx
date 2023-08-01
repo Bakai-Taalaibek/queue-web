@@ -46,7 +46,7 @@ export const Activation = () => {
 
           <div className='horisontal-group horisontal-group--margin-top-2'>
             <div className='button button--50' onClick={ () => navigate(-1)}>{ t('back') }</div>
-            <div className='button button--blue button--50' type='submit'>{ t('createAnAccount') }</div>
+            <div onClick={ handleActivation } className='button button--blue button--50' type='submit'>{ t('createAnAccount') }</div>
           </div>          
         </form>
 

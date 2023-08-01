@@ -16,7 +16,7 @@ export const BranchSchedule = () => {
   const endTime = currentBranch.work_time_end.substring(0,5)
 
   return( 
-    <div className='glass-container glass-container--grid-2'>    
+    <div className='glass-container '>    
       <div className="picker">
         <button 
           onClick={ () => navigate(-1) } 

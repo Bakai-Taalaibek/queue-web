@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next'
 
 export const DateAndTimePicker = () => {
   const [appointmentDate, setAppointmentDate] = useState(null)
-  const [appointmentTime, setAppointmentTime] = useState(dayjs().set('hour', 9).startOf('hour'))
+  const [appointmentTime, setAppointmentTime] = useState(dayjs().set('hour', 11).startOf('hour'))
   const { parameters, setServerResponse, resetSomeState, setDateAndTime, allBranches } = useServiceChooser()
   const navigate = useNavigate()
   const { t, i18n } = useTranslation()
@@ -128,7 +128,7 @@ export const DateAndTimePicker = () => {
   });
 
   const startTime = dayjs().set('hour', +scheduleDayStartTime.slice(0, 2)).set('minute', +scheduleDayStartTime.slice(3, 5)).set('second', 0)
-  const endTime = dayjs().set('hour', +scheduleDayEndTime.slice(0, 2)).set('minute', +scheduleDayStartTime.slice(3, 2) - 15).set('second', 0)
+  const endTime = dayjs().set('hour', +scheduleDayEndTime.slice(0, 2)).set('minute', parseInt(scheduleDayEndTime.slice(3, 5)) - 15).set('second', 0)
   const currentDate = dayjs().set('hour', 0).set('minute', 0).set('second', 0).set('millisecond', 0)
   const currentTime = dayjs()
 

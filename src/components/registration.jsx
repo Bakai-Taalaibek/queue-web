@@ -38,7 +38,7 @@ export const Registration = () => {
       <div>
         <p className='text'>{ t('creatingANewAccount') }</p>
 
-        <form onSubmit={ handleRegistration }>
+        <form >
           <div>
             <p className='text--small text--left '>{ t('enterTelephoneNumber') } &#9432;</p>
             <input  
@@ -74,7 +74,7 @@ export const Registration = () => {
 
           <div className='horisontal-group horisontal-group--margin-top-2'>
             <div className='button button--50' onClick={ () => navigate('../authorization')}>{ t('alreadyHaveAnAccount') }</div>
-            <div className='button button--blue button--50' type='submit'>{ t('createAnAccount') }</div>
+            <div onClick={ handleRegistration } className='button button--blue button--50' type='submit'>{ t('createAnAccount') }</div>
           </div>
         </form>
 
