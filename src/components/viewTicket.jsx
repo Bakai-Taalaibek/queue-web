@@ -8,7 +8,7 @@ export const ViewTicket = () => {
   let dateAndTime = new Date(serverResponse.registered_at)
   const time = dateAndTime.toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' });
   const date = dateAndTime.toLocaleDateString('ru');
-
+  console.log(serverResponse)
   return (
     <div className="glass-container" style={{ textAlign: 'left' }}>
 
@@ -38,10 +38,16 @@ export const ViewTicket = () => {
           
         </div>
 
-        <p className="text-margin-5">
-          <span>{ t('positionInQueue') }: </span>
-          <span className="text-bold">{ serverResponse.position_in_queue }</span>
-        </p>
+        { serverResponse.is_appointed ? 
+          <p className=" myTickets__leftTextRow  text-margin-5">
+            <span className="text-bold">{ t('appointment') }: </span>
+            <span>{ new Date(serverResponse.appointment_date).toLocaleDateString('ru') }, { new Date(serverResponse.appointment_date).toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' }) }</span>
+          </p> :
+          <p className=" myTickets__leftTextRow  text-margin-5">
+            <span>{ t('positionInQueue') }: </span>
+            <span className="text-bold">{ serverResponse.position_in_queue }</span>
+          </p> 
+        }
         {/* <p className="text-margin-5">
           <span>Осталось: </span>
           <span className="text-bold">{ serverResponse.estimated_time_in_min } минут</span>

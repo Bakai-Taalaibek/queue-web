@@ -60,10 +60,16 @@ export const MyTickets = () => {
                 
               </div>
 
-              <p className=" myTickets__leftTextRow  text-margin-5">
-                <span>{ t('positionInQueue') }: </span>
-                <span className="text-bold">{ ticket.position_in_queue }</span>
-              </p>
+              { ticket.is_appointed ? 
+                <p className=" myTickets__leftTextRow  text-margin-5">
+                  <span className="text-bold">{ t('appointment') }: </span>
+                  <span>{ new Date(ticket.appointment_date).toLocaleDateString('ru') }, { new Date(ticket.appointment_date).toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' }) }</span>
+                </p> :
+                <p className=" myTickets__leftTextRow  text-margin-5">
+                  <span>{ t('positionInQueue') }: </span>
+                  <span className="text-bold">{ ticket.position_in_queue }</span>
+                </p> 
+              }
               {/* <p className=" myTickets__leftTextRow  text-margin-5">
                 <span>Осталось: </span>
                 <span className="text-bold">{ ticket.estimated_time_in_min } минут</span>

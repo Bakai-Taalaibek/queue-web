@@ -58,6 +58,7 @@
   "chooseQueueType": "Select Queue Type",
   "SignUpForASpecificTime": "Sign up for a specific time",
   "takeTheNearestPlaceInLine": "Take the nearest place in line",
-  "selectABranch": "Select a branch"
+  "selectABranch": "Select a branch",
+  "appointment": "Appointment"
  
 }  
